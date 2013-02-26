@@ -1,7 +1,8 @@
 import java.util.ArrayList;
-abstract class PhysObj extends Element
+
+abstract class PhysEl extends Element
 {
-    static public ArrayList<PhysObj> physElements = new ArrayList<PhysObj>();
+    static public ArrayList<PhysEl> physElements = new ArrayList<PhysEl>();
 
     public String type;
 
@@ -30,7 +31,7 @@ abstract class PhysObj extends Element
 
         int ticknum = 0;
         ticknum = (int)(simulationTime / tickTime);
-        for (PhysObj e : physElements)
+        for (PhysEl e : physElements)
         {
             for(int i = 0; i<ticknum; i++)
                 e.tick();
@@ -42,7 +43,7 @@ abstract class PhysObj extends Element
         }
     }
 
-    public String queryType()
+    public String type()
     {
         return type;
     }

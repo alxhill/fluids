@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
-class Line extends PhysObj
+class Line extends PhysEl
 {
 
     int[] lx; int[] ly;
@@ -13,7 +13,7 @@ class Line extends PhysObj
         lx = new int[2];
         ly = new int[2];
     }
-    
+
     public void setLine(int x1, int y1, int x2, int y2)
     {
         lx[0]=x1;

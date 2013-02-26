@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import javax.swing.*;
 import java.awt.*;
 
-class WaterBlob extends PhysObj
+class WaterBlob extends PhysEl
 {
 
     WaterBlob()
@@ -22,28 +22,28 @@ class WaterBlob extends PhysObj
         int nx, ny;
         ny=y+(int)gravity;
         nx=x;
-        
-        for (PhysObj e : PhysObj.physElements)
+
+        for (PhysEl e : PhysEl.physElements)
         {
-            if(e.queryType()=="L")
+            if(e.type()=="L")
             {
                 Line l = (Line) e;
-                                
+
                 int s1=side(l.lx[0], l.ly[0], l.lx[1], l.ly[1], x, y);
                 int s2=side(l.lx[0], l.ly[0], l.lx[1], l.ly[1], nx, ny);
-                
+
                 int sign1=Math.abs(s1)/s1;
                 int sign2=Math.abs(s2)/s2;
-                
+
                 if(sign1!=sign2)
                 {
                     nx=x;
                     ny=y;
-                }                
-            }        
+                }
+            }
         }
-        
-        
+
+
         x=nx;
         y=ny;
     }
