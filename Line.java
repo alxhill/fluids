@@ -13,6 +13,14 @@ class Line extends PhysObj
         lx = new int[2];
         ly = new int[2];
     }
+    
+    public void setLine(int x1, int y1, int x2, int y2)
+    {
+        lx[0]=x1;
+        ly[0]=y1;
+        lx[1]=x2;
+        ly[1]=y2;
+    }
 
     public void tick()
     {
@@ -23,8 +31,6 @@ class Line extends PhysObj
     public void render(Graphics2D g)
     {
         //g.fillOval(0, 0, 50, 50);
+        g.drawLine(lx[0], ly[0], lx[1], ly[1]);
     }
-
-
-
 }

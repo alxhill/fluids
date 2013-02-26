@@ -31,6 +31,11 @@ class Play implements Runnable
         seesaw1.push();
         seesaw2.push();
         
+        Line lin = new Line();     
+        lin.push();
+        lin.physPush();
+        lin.setLine(-10, 160, 280, 280);
+        
         WaterBlob wa = new WaterBlob();
         wa.push();
         wa.physPush();
