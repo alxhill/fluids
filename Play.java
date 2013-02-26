@@ -8,14 +8,14 @@ class Play implements Runnable
 
     Play()
     {
-        time=System.nanoTime();
+
     }
 
     public static void main(String[] args)
     {
         Play program = new Play();
         SwingUtilities.invokeLater(program);
-        //time=System.nanoTime();
+
         program.animate();
     }
 
@@ -26,8 +26,14 @@ class Play implements Runnable
         w.setDefaultCloseOperation(w.EXIT_ON_CLOSE);
         seesaw1.push();
         seesaw2.push();
+
+        Line lin = new Line();
+        lin.push();
+        lin.setLine(-10, 160, 280, 280);
+
         WaterBlob wa = new WaterBlob();
         wa.push();
+
         w.add(view);
         w.pack();
         w.setLocationByPlatform(true);
@@ -52,7 +58,7 @@ class Play implements Runnable
                 seesaw2.update(0.1);
             }
             view.tick();
-            PhysObj.tick();
+            PhysObj.physTick();
         }
     }
 }

@@ -12,7 +12,8 @@ abstract class PhysObj extends Element
     static public double simulationTime=0;
     static public double tickTime=20.0;
     ///1 tick every 20 ms
-    static private double time;
+
+    static private double time = System.nanoTime();
 
     static void physTick()
     {
