@@ -18,6 +18,10 @@ class View extends JPanel
 	void tick()
 	{
 		repaint();
+		for (PhysObj e : PhysObj.physElements)
+		{
+			e.tick();
+		}
 	}
 
     public void paintComponent(Graphics g)

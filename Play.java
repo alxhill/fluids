@@ -22,6 +22,11 @@ class Play implements Runnable
         //view.addElement(seesaw2);
 		seesaw1.push();
 		seesaw2.push();
+		
+		WaterBlob wa = new WaterBlob();
+		wa.push();
+		wa.physPush();
+		
         w.add(view);
         w.pack();
         w.setLocationByPlatform(true);
