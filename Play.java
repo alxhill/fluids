@@ -58,7 +58,7 @@ class Play implements Runnable
                 seesaw2.update(0.1);
             }
             view.tick();
-            PhysObj.physTick();
+            PhysEl.physTick();
         }
     }
 }
