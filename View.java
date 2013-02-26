@@ -19,7 +19,7 @@ class View extends JPanel
 
     public void paintComponent(Graphics g)
     {
-        super.paintComponents(g);
+        super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         for (Element e : elements)
             e.render(g2);

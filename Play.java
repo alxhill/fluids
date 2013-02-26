@@ -32,15 +32,10 @@ class Play implements Runnable
             try { Thread.sleep(100); }
             catch (InterruptedException interruption) { }
             if (i%8 < 4)
-            {
                 seesaw.update(0.1);
-                view.repaint();
-            }
             else
-            {
                 seesaw.update(-0.1);
-                view.repaint();
-            }
+            view.repaint();
         }
     }
 }
