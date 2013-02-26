@@ -18,8 +18,10 @@ class Play implements Runnable
     {
         JFrame w = new JFrame();
         w.setDefaultCloseOperation(w.EXIT_ON_CLOSE);
-        view.addElement(seesaw1);
-        view.addElement(seesaw2);
+        //view.addElement(seesaw1);
+        //view.addElement(seesaw2);
+		seesaw1.push();
+		seesaw2.push();
         w.add(view);
         w.pack();
         w.setLocationByPlatform(true);
