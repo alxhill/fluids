@@ -17,7 +17,6 @@ abstract class PhysObj extends Element
 	{
 		int ticknum=0;
 		ticknum = (int)(simulationTime / tickTime);
-		System.out.println(ticknum);
 		for (PhysObj e : PhysObj.physElements)
 		{
 			for(int i=0; i<ticknum; i++)
