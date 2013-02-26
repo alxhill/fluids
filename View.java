@@ -5,25 +5,25 @@ import java.util.ArrayList;
 class View extends JPanel
 {
 
-	private ArrayList<Element> elements = new ArrayList<Element>();
+    private ArrayList<Element> elements = new ArrayList<Element>();
 
-	View()
-	{
-		setPreferredSize(new Dimension(800, 600));
-	}
+    View()
+    {
+        setPreferredSize(new Dimension(800, 600));
+    }
 
-	void addElement(Element e)
-	{
-		elements.add(e);
-	}
+    void addElement(Element e)
+    {
+        elements.add(e);
+    }
 
-	public void paintComponent(Graphics g)
-	{
-		super.paintComponents(g);
-		Graphics2D g2 = (Graphics2D) g;
-		for (Element e : elements)
-			e.render(g2);
-	}
+    public void paintComponent(Graphics g)
+    {
+        super.paintComponents(g);
+        Graphics2D g2 = (Graphics2D) g;
+        for (Element e : elements)
+            e.render(g2);
+    }
 
 
 }
