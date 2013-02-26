@@ -2,6 +2,7 @@ import javax.swing.*;
 
 class Play implements Runnable
 {
+    private View view = new View();
     private Seesaw seesaw = new Seesaw();
 
     public static void main(String[] args)
@@ -16,7 +17,8 @@ class Play implements Runnable
     {
         JFrame w = new JFrame();
         w.setDefaultCloseOperation(w.EXIT_ON_CLOSE);
-        w.add(seesaw);
+        view.addElement(seesaw);
+        w.add(view);
         w.pack();
         w.setLocationByPlatform(true);
         w.setVisible(true);
@@ -29,8 +31,16 @@ class Play implements Runnable
         {
             try { Thread.sleep(100); }
             catch (InterruptedException interruption) { }
-            if (i%8 < 4) seesaw.update(0.1);
-            else seesaw.update(-0.1);
+            if (i%8 < 4)
+            {
+                seesaw.update(0.1);
+                view.repaint();
+            }
+            else
+            {
+                seesaw.update(-0.1);
+                view.repaint();
+            }
         }
     }
 }

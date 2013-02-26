@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 class View extends JPanel
 {
@@ -8,7 +9,7 @@ class View extends JPanel
 
 	View()
 	{
-		setPreferredSize(800, 600);
+		setPreferredSize(new Dimension(800, 600));
 	}
 
 	void addElement(Element e)
@@ -19,12 +20,9 @@ class View extends JPanel
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponents(g);
-		g2 = (Graphics2D) g;
+		Graphics2D g2 = (Graphics2D) g;
 		for (Element e : elements)
-		{
 			e.render(g2);
-		}
-
 	}
 
 
