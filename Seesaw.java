@@ -19,9 +19,9 @@ class Seesaw extends Element
 
     public void render(Graphics2D g)
     {
-        g.rotate(angle, x + 150, y + 50);
-        g.fillRect(x, y, 300, 25);
-        g.fillOval(x + 125, y + 25, 50, 50);
-        g.rotate(-1 * angle, x + 150, y + 50);
+        g.rotate(angle, 150, 50);
+        g.fillRect(0, 0, 300, 25);
+        g.fillOval(125, 25, 50, 50);
+        g.rotate(-1 * angle, 150, 50);
     }
 }
