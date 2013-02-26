@@ -16,6 +16,11 @@ class View extends JPanel
     {
         elements.add(e);
     }
+	
+	void tick()
+	{
+		repaint();
+	}
 
     public void paintComponent(Graphics g)
     {

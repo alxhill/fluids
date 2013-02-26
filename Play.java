@@ -43,7 +43,7 @@ class Play implements Runnable
                 seesaw1.update(-0.1);
                 seesaw2.update(0.1);
             }
-            view.repaint();
+            view.tick();
         }
     }
 }
