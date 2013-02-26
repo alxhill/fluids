@@ -11,9 +11,17 @@ class WaterBlob extends PhysObj
         x=0; y=0; rot=0;
     }
 
+    public int side(int l1x, int l1y, int l2x, int l2y, int px, int py)
+    {
+        int side=(l2x - l1x) * (py - l1y) - (l2y - l1x) * (px - l1x);
+        return side;
+    }
+
     public void tick()
     {
-        y+=gravity;
+        int nx, ny;
+        ny=y+(int)gravity;
+        nx=x;
     }
 
     public void render(Graphics2D g)

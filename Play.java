@@ -5,7 +5,6 @@ class Play implements Runnable
     private View view = new View();
     private Seesaw seesaw1 = new Seesaw(50, 100, -0.2);
     private Seesaw seesaw2 = new Seesaw(100,200, 0.2);
-    private double time;
 
     Play()
     {
@@ -17,7 +16,6 @@ class Play implements Runnable
         Play program = new Play();
         SwingUtilities.invokeLater(program);
         //time=System.nanoTime();
-
         program.animate();
     }
 
@@ -26,14 +24,10 @@ class Play implements Runnable
     {
         JFrame w = new JFrame();
         w.setDefaultCloseOperation(w.EXIT_ON_CLOSE);
-        //view.addElement(seesaw1);
-        //view.addElement(seesaw2);
         seesaw1.push();
         seesaw2.push();
-
         WaterBlob wa = new WaterBlob();
         wa.push();
-
         w.add(view);
         w.pack();
         w.setLocationByPlatform(true);

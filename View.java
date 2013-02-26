@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 
-
 class View extends JPanel
 {
 
@@ -10,17 +9,10 @@ class View extends JPanel
         setPreferredSize(new Dimension(800, 600));
     }
 
-    /*void addElement(Element e)
+    void tick()
     {
-        elements.add(e);
-    }*/
-
-
-
-	void tick()
-	{
-		repaint();
-	}
+        repaint();
+    }
 
     public void paintComponent(Graphics g)
     {
