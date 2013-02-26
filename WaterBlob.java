@@ -13,6 +13,7 @@ class WaterBlob extends PhysObj
 	
 	public void tick()
 	{
+		
 		y+=gravity;
 	}
 	
