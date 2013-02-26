@@ -1,7 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
 
-interface Element
+abstract class Element
 {
-    public void render(Graphics2D g);
+    public int x, y;
+
+    abstract public void render(Graphics2D g);
 }

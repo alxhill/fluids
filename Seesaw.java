@@ -1,12 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
 
-class Seesaw implements Element
+class Seesaw extends Element
 {
     private double angle;
-
-    private int x;
-    private int y;
 
     Seesaw(int x, int y, double start)
     {
