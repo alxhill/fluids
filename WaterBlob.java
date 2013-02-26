@@ -4,23 +4,30 @@ import java.awt.*;
 
 class WaterBlob extends PhysObj
 {
-	
-	WaterBlob()
-	{
-		type="WB";
-		x=0; y=0; rot=0;
-	}
-	
-	public void tick()
-	{
-		
-		y+=gravity;
-	}
-	
-	public void render(Graphics2D g)
-	{
-		g.fillOval(0, 0, 50, 50);
-	}
+    
+    WaterBlob()
+    {
+        type="WB";
+        x=0; y=0; rot=0;
+    }
+    
+    public int side(int l1x, int l1y, int l2x, int l2y, int px, int py)
+    {
+        int side=(l2x - l1x) * (py - l1y) - (l2y - l1x) * (px - l1x);
+        return side;
+    }
+    
+    public void tick()
+    {
+        int nx; int ny;
+        ny=y+(int)gravity;
+        nx=x;
+    }
+    
+    public void render(Graphics2D g)
+    {
+        g.fillOval(0, 0, 50, 50);
+    }
 
 
 
