@@ -3,8 +3,8 @@ import javax.swing.*;
 class Play implements Runnable
 {
     private View view = new View();
-    private Seesaw seesaw1 = new Seesaw(50, 100);
-    private Seesaw seesaw2 = new Seesaw(100,200);
+    private Seesaw seesaw1 = new Seesaw(50, 100, -0.2);
+    private Seesaw seesaw2 = new Seesaw(100,200, 0.2);
 
     public static void main(String[] args)
     {
@@ -36,12 +36,12 @@ class Play implements Runnable
             if (i%8 < 4)
             {
                 seesaw1.update(0.1);
-                seesaw2.update(0.1);
+                seesaw2.update(-0.1);
             }
             else
             {
                 seesaw1.update(-0.1);
-                seesaw2.update(-0.1);
+                seesaw2.update(0.1);
             }
             view.repaint();
         }
