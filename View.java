@@ -23,9 +23,12 @@ class View extends JPanel
 
         for (Element e : Element.elements)
         {
-            g.translate(e.x, e.y);
+            int rx, ry;
+            rx=(int)Math.round(e.x);
+            ry=(int)Math.round(e.y);
+            g.translate(rx, ry);
             e.render(g2);
-            g.translate(-1*e.x, -1*e.y);
+            g.translate(-1*rx, -1*ry);
         }
     }
 

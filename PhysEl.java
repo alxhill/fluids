@@ -8,7 +8,7 @@ abstract class PhysEl extends Element
 
     abstract public void tick();
 
-    static public float gravity=9.8f;
+    static public double gravity=9.8f;
 
     static public double simulationTime=0;
     static public double tickTime=20.0;
@@ -47,10 +47,16 @@ abstract class PhysEl extends Element
     {
         return type;
     }
+    
+    ///would like to keep these two separated because rendering water will not be a straight per element render
+    
+    public void physPush()
+    {
+        physElements.add(this);
+    }
 
     public void push()
     {
         super.push();
-        physElements.add(this);
     }
 }

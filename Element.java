@@ -6,7 +6,7 @@ abstract class Element
 {
     static public ArrayList<Element> elements = new ArrayList<Element>();
         
-    public int x, y;
+    public double x, y;
     public int rot;
 
     abstract public void render(Graphics2D g);
