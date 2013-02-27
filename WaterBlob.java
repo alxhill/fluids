@@ -16,6 +16,82 @@ class WaterBlob extends PhysEl
         int side=(l2x - l1x) * (py - l1y) - (l2y - l1y) * (px - l1x);
         return side;
     }
+    
+    public Boolean changesSide(Line l, double p1x, double p1y, double p2x, double p2y)
+    {
+        int s1=side(l.lx[0], l.ly[0], l.lx[1], l.ly[1], (int)p1x, (int)p1y);
+        int s2=side(l.lx[0], l.ly[0], l.lx[1], l.ly[1], (int)p2x, (int)p2y);
+        
+        int sign1=0, sign2=1;
+        
+        int[] rp = new int[2];
+        
+        rp[0]=(int)p2x;
+        rp[1]=(int)p2y;
+        
+        if(s1!=0 && s2!=0)
+        {
+            sign1=(int)Math.signum(s1);
+            sign2=(int)Math.signum(s2);
+        }
+
+        if(sign1!=sign2)
+            return true;
+        else
+            return false;
+    }
+        
+    public int[] maxParticleMoveToLine(double p1x, double p1y, double p2x, double p2y, Line l, Boolean slide)
+    {
+        ///if iswithin line
+        int symod=0;
+        int s1=side(l.lx[0], l.ly[0], l.lx[1], l.ly[1], (int)p1x, (int)p1y);
+        int s2=side(l.lx[0], l.ly[0], l.lx[1], l.ly[1], (int)p2x, (int)p2y);
+        
+        int sign1=0, sign2=1;
+        
+        int[] rp = new int[2];
+        
+        rp[0]=(int)p2x;
+        rp[1]=(int)p2y;
+        
+        if(s1!=0 && s2!=0)
+        {
+            sign1=(int)Math.signum(s1);
+            sign2=(int)Math.signum(s2);
+        }
+
+        if(sign1!=sign2)
+        {
+            //System.out.println("hi");
+            double downtheplane=Math.cos(l.angle)*gravity;
+            
+            double xmov;
+            if(slide)
+            {
+                xmov=Math.cos(l.angle)*downtheplane;
+                xmov = xmov + x;
+            }
+            else
+            {
+                xmov=p2x;
+            }
+            
+            if(l.angle < 0 && slide)
+            {
+                xmov=(-(xmov - x)) + x;
+            }
+            double ymov = l.gradient * (xmov) + l.con - 1;
+
+            //nx=x + xmov;
+            //ny=ymov;
+            rp[0]=(int)xmov;
+            rp[1]=(int)ymov;
+        }
+        
+    
+        return rp;
+    }
 
     public void tick()
     {
@@ -24,14 +100,49 @@ class WaterBlob extends PhysEl
         double px=x, py=y;
         ny=y+gravity;
         nx=x;
+        int[] newPos = new int[2];
+        
+        newPos[0]=(int)nx;
+        newPos[1]=(int)ny;
+        
+        Boolean slide=true;
 
 
         for (PhysEl e : PhysEl.physElements)
         {
             if(e.type()=="L")
-            {
+            {   
                 Line l = (Line) e;
-                int symod=0;
+                ///if it changes side of the line, update newpos with value from temporary
+                
+                if(changesSide(l, px, py, nx, ny))
+                {
+                    int[] tPos=new int[2];
+                    tPos=maxParticleMoveToLine(px, py, nx, ny, l, slide);
+                    newPos[0]=tPos[0];
+                    newPos[1]=Math.min(tPos[1], newPos[1]);
+                    slide=false;
+                
+                }
+                
+                /*for (PhysEl n : PhysEl.physElements)
+                {
+                    if(n.type()=="L")
+                    {   
+                        Line lr = (Line) n;
+                        int[] newPos2 = new int[2];
+                        if(changesSide(lr, px, py, (double)newPos[0], (double)newPos[1]))
+                        {
+                            newPos2=maxParticleMoveToLine(px, py, (double)newPos[0], (double)newPos[1], lr, true);
+                            newPos[1] = Math.min(newPos2[1], newPos[1]);
+                        }
+                        
+                    }
+                }*/
+                
+                
+                ///if iswithin line
+                /*int symod=0;
                 int s1=side(l.lx[0], l.ly[0], l.lx[1], l.ly[1], (int)x, (int)y);
                 int s2=side(l.lx[0], l.ly[0], l.lx[1], l.ly[1], (int)nx, (int)ny);
                 
@@ -40,8 +151,8 @@ class WaterBlob extends PhysEl
                 
                 if(s1!=0 && s2!=0)
                 {
-                    sign1=Math.abs(s1)/s1;
-                    sign2=Math.abs(s2)/s2;
+                    sign1=(int)Math.signum(s1);
+                    sign2=(int)Math.signum(s2);
                 }
 
                 
@@ -74,13 +185,23 @@ class WaterBlob extends PhysEl
                     nx=x + xmov;
                     ny=ymov;
                     
+                    ///go through lines, take f(x) of lines and take minimum - assumes connected OR repeat this process above
+                    
                 }
+                */
             }
         }
 
 
-        x=nx;
-        y=ny;
+        x=newPos[0];
+        y=newPos[1];
+    }
+    
+    public void setXY(int px, int py)
+    {
+        x=(double)px;
+        y=(double)py;
+    
     }
 
     public void render(Graphics2D g)

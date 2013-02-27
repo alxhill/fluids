@@ -24,20 +24,21 @@ class Play implements Runnable
     {
         JFrame w = new JFrame();
         w.setDefaultCloseOperation(w.EXIT_ON_CLOSE);
-        seesaw1.push();
-        seesaw2.push();
+        //seesaw1.push();
+        //seesaw2.push();
 
         Line lin = new Line();
         lin.push();
         lin.setLine(10, 160, 280, 280);
         lin.physPush();
         //need to do additional checks to check it isnt screwed up when it moves under waterblob
-        //Line lin2 = new Line();
-        //lin2.push();
-        //lin2.setLine(280, 280,500, 100);
-        //lin2.physPush();
+        Line lin2 = new Line();
+        lin2.push();
+        lin2.setLine(180, 280,500, 100);
+        lin2.physPush();
 
         WaterBlob wa = new WaterBlob();
+        wa.setXY(0, 0);
         wa.push();
         wa.physPush();
 
