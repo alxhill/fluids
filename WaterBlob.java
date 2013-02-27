@@ -20,6 +20,8 @@ class WaterBlob extends PhysEl
     public void tick()
     {
         double nx, ny;
+        
+        double px=x, py=y;
         ny=y+gravity;
         nx=x;
 
