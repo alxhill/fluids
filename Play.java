@@ -36,11 +36,14 @@ class Play implements Runnable
         lin2.push();
         lin2.setLine(180, 280,500, 100);
         lin2.physPush();
-
-        WaterBlob wa = new WaterBlob();
-        wa.setXY(0, 0);
-        wa.push();
-        wa.physPush();
+        
+        for(int i=0; i<100; i++)
+        {
+            WaterBlob wa = new WaterBlob();
+            wa.setXY(i*5, 0);
+            wa.push();
+            wa.physPush();
+        }
 
         w.add(view);
         w.pack();

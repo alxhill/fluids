@@ -102,27 +102,76 @@ class WaterBlob extends PhysEl
         nx=x;
         int[] newPos = new int[2];
         
-        newPos[0]=(int)nx;
-        newPos[1]=(int)ny;
+        newPos[0]=0;
+        newPos[1]=1000000;
         
         Boolean slide=true;
-
-
-        for (PhysEl e : PhysEl.physElements)
+        Boolean first=true;
+        
+        int nskip=-1;
+        for(int i=0; i<PhysEl.physElements.size(); i++)
         {
-            if(e.type()=="L")
+            if(PhysEl.physElements.get(i).type()=="L" && i!=nskip)
+            {
+                Line l = (Line) PhysEl.physElements.get(i);
+                
+                ///changes side of a line
+                if(changesSide(l, px, py, nx, ny) && first && i!=nskip)
+                {   
+                
+                    int[] tPos=new int[2];
+                    tPos=maxParticleMoveToLine(px, py, nx, ny, l, slide);
+                    newPos=tPos;
+
+                    first=false;
+                    nskip=i;
+                    i=-1;
+                    newPos=tPos;
+                    slide=false;
+                    continue;
+                    
+                }
+                else if(!first && changesSide(l, px, py, newPos[0], newPos[1]))
+                {
+                    int[] tPos=new int[2];
+                    tPos=maxParticleMoveToLine(px, py, newPos[0], newPos[1], l, slide);
+                    newPos[1]=Math.min(tPos[1], newPos[1]);
+                }
+            }
+        }
+        
+        if(!first)
+        {
+            x=newPos[0];
+            y=newPos[1];
+        }
+        else
+        {
+            x=nx;
+            y=ny;
+        }
+        
+
+        /*for(int i=0; i<PhysEl.physElements.size(); i++)
+        //for (PhysEl e : PhysEl.physElements)
+        {
+            if(PhysEl.physElements.get(i).type()=="L" && i!=nskip)
             {   
-                Line l = (Line) e;
+                Line l = (Line) PhysEl.physElements.get(i);
                 ///if it changes side of the line, update newpos with value from temporary
                 
                 if(changesSide(l, px, py, nx, ny))
                 {
+                    if(slide)
+                    {
+                        nskip=i;
+                        i=-1;
+                    }
                     int[] tPos=new int[2];
                     tPos=maxParticleMoveToLine(px, py, nx, ny, l, slide);
                     newPos[0]=tPos[0];
                     newPos[1]=Math.min(tPos[1], newPos[1]);
                     slide=false;
-                
                 }
                 
                 /*for (PhysEl n : PhysEl.physElements)
@@ -188,13 +237,20 @@ class WaterBlob extends PhysEl
                     ///go through lines, take f(x) of lines and take minimum - assumes connected OR repeat this process above
                     
                 }
-                */
+                
             }
+        }*/
+
+        /*if(slide)
+        {
+            x=nx;
+            y=ny;
         }
-
-
-        x=newPos[0];
-        y=newPos[1];
+        else
+        {
+            x=newPos[0];
+            y=newPos[1];
+        }*/
     }
     
     public void setXY(int px, int py)
