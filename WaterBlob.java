@@ -5,9 +5,10 @@ import java.awt.*;
 class WaterBlob extends PhysEl
 {
 
+    private double velocity = 0;
+
     WaterBlob()
     {
-        type="WB";
         x=0; y=0; rot=0;
     }
 
@@ -27,6 +28,7 @@ class WaterBlob extends PhysEl
         int maxx=Math.max(l.lx[0], l.lx[1]);
         int miny=Math.min(l.ly[0], l.ly[1]);
         int maxy=Math.max(l.ly[0], l.ly[1]);
+
         //if(!(p2x > minx && p2x < maxx && p2y > miny && p2y < maxy))
         if(!(p2x > minx && p2x < maxx))
         {
@@ -99,27 +101,30 @@ class WaterBlob extends PhysEl
     {
         double nx, ny;
 
-        double px=x, py=y;
-        ny=y+gravity;
-        nx=x;
+        double px = x, py = y;
+        ny = y + gravity;
+        nx = x;
         int[] newPos = new int[2];
 
-        newPos[0]=0;
-        newPos[1]=0;
-
-        Boolean slide=true;
-        Boolean first=true;
-
-        int nskip=-1;
         for(int i=0; i<PhysEl.physElements.size(); i++)
+        newPos[0] = 0;
+        newPos[1] = 0;
+
+        Boolean slide = true;
+        Boolean first = true;
+
+        int nskip = -1;
+        for(int i = 0; i<PhysEl.physElements.size(); i++)
         {
-            if(PhysEl.physElements.get(i).type()=="L" && i!=nskip)
+            PhysEl el = PhysEl.physElements.get(i);
+            if(el instanceof Line && i != nskip)
             {
-                Line l = (Line) PhysEl.physElements.get(i);
+
+                Line l = (Line) el;
 
                 ///changes side of a line
                 if(first && changesSide(l, px, py, nx, ny) && i!=nskip)
-                {
+
                     int[] tPos=new int[2];
                     tPos=maxParticleMoveToLine(px, py, nx, ny, l, slide);
                     newPos=tPos;
@@ -130,8 +135,7 @@ class WaterBlob extends PhysEl
                     newPos=tPos;
                     slide=false;
                     continue;
-
-                }
+                                    }
                 else if(!first && changesSide(l, px, py, newPos[0], newPos[1]))
                 {
                     int[] tPos=new int[2];
