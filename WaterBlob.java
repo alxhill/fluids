@@ -16,29 +16,30 @@ class WaterBlob extends PhysEl
         int side=(l2x - l1x) * (py - l1y) - (l2y - l1y) * (px - l1x);
         return side;
     }
-    
+
     public Boolean changesSide(Line l, double p1x, double p1y, double p2x, double p2y)
     {
         int s1=side(l.lx[0], l.ly[0], l.lx[1], l.ly[1], (int)p1x, (int)p1y);
         int s2=side(l.lx[0], l.ly[0], l.lx[1], l.ly[1], (int)p2x, (int)p2y);
-        
+
         ///not quite a valid assumption, but should only generate very edge case minor errors
         int minx=Math.min(l.lx[0], l.lx[1]);
-        int maxx=Math.max(l.lx[0], l.lx[1]);        
+        int maxx=Math.max(l.lx[0], l.lx[1]);
         int miny=Math.min(l.ly[0], l.ly[1]);
         int maxy=Math.max(l.ly[0], l.ly[1]);
-        if(!(p2x > minx && p2x < maxx && p2y > miny && p2y < maxy))
+        //if(!(p2x > minx && p2x < maxx && p2y > miny && p2y < maxy))
+        if(!(p2x > minx && p2x < maxx))
         {
             return false;
         }
-        
+
         int sign1=0, sign2=1;
-        
+
         int[] rp = new int[2];
-        
+
         rp[0]=(int)p2x;
         rp[1]=(int)p2y;
-        
+
         if(s1!=0 && s2!=0)
         {
             sign1=(int)Math.signum(s1);
@@ -50,13 +51,13 @@ class WaterBlob extends PhysEl
         else
             return false;
     }
-        
+
     public int[] maxParticleMoveToLine(double p1x, double p1y, double p2x, double p2y, Line l, Boolean slide)
     {
         ///if iswithin line
         int symod=0;
         int[] rp = new int[2];
-        
+
         rp[0]=(int)p2x;
         rp[1]=(int)p2y;
 
@@ -64,7 +65,7 @@ class WaterBlob extends PhysEl
         {
             //System.out.println("hi");
             double downtheplane=Math.cos(l.angle)*gravity;
-            
+
             double xmov;
             if(slide)
             {
@@ -75,51 +76,50 @@ class WaterBlob extends PhysEl
             {
                 xmov=p2x;
             }
-            
+
             if(l.angle < 0 && slide)
             {
                 xmov=(-(xmov - x)) + x;
             }
             double ymov = l.gradient * (xmov) + l.con; //-1?
-            
-            
+
+            System.out.println("hi");
 
             //nx=x + xmov;
             //ny=ymov;
             rp[0]=(int)xmov;
             rp[1]=(int)ymov;
         }
-        
-    
+
+
         return rp;
     }
 
     public void tick()
     {
         double nx, ny;
-        
+
         double px=x, py=y;
         ny=y+gravity;
         nx=x;
         int[] newPos = new int[2];
-        
+
         newPos[0]=0;
         newPos[1]=0;
-        
+
         Boolean slide=true;
         Boolean first=true;
-        
+
         int nskip=-1;
         for(int i=0; i<PhysEl.physElements.size(); i++)
         {
             if(PhysEl.physElements.get(i).type()=="L" && i!=nskip)
             {
                 Line l = (Line) PhysEl.physElements.get(i);
-                
+
                 ///changes side of a line
                 if(first && changesSide(l, px, py, nx, ny) && i!=nskip)
-                {   
-                
+                {
                     int[] tPos=new int[2];
                     tPos=maxParticleMoveToLine(px, py, nx, ny, l, slide);
                     newPos=tPos;
@@ -130,7 +130,7 @@ class WaterBlob extends PhysEl
                     newPos=tPos;
                     slide=false;
                     continue;
-                    
+
                 }
                 else if(!first && changesSide(l, px, py, newPos[0], newPos[1]))
                 {
@@ -140,7 +140,7 @@ class WaterBlob extends PhysEl
                 }
             }
         }
-        
+
         if(!first)
         {
             x=newPos[0];
@@ -151,9 +151,9 @@ class WaterBlob extends PhysEl
             x=nx;
             y=ny;
         }
-        
+
     }
-    
+
     public void setXY(int px, int py)
     {
         x=(double)px;

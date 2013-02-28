@@ -5,11 +5,11 @@ class Line extends PhysEl
 {
 
     int[] lx; int[] ly;
-    
+
     public double angle;
-    
+
     public double gradient;
-    
+
     public double con;
 
     Line()
@@ -19,11 +19,11 @@ class Line extends PhysEl
         lx = new int[2];
         ly = new int[2];
     }
-    
+
     Line(int x1, int y1, int x2, int y2)
     {
         this();
-        setLine(x1, y1, x2, y2);    
+        setLine(x1, y1, x2, y2);
     }
 
     public void setLine(int x1, int y1, int x2, int y2)

@@ -35,14 +35,14 @@ class Play implements Runnable
         Line lin2 = new Line();
         lin2.push();
         lin2.setLine(180, 280,500, 100);
-        lin2.physPush();        
-        
+        lin2.physPush();
+
         ///currently falls through this
         Line lin3 = new Line();
         lin3.push();
         lin3.setLine(20, 220, 500, 230);
         lin3.physPush();
-        
+
         for(int i=50; i<100; i++)
         {
             WaterBlob wa = new WaterBlob();
