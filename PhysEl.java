@@ -7,7 +7,7 @@ abstract class PhysEl extends Element
 
     abstract public void tick();
 
-    static public double gravity=9.8f;
+    static public double gravity=0.98f;
 
     static public double simulationTime=0;    
     static public double tickTime=40.0;

@@ -5,7 +5,7 @@ import java.awt.*;
 class WaterBlob extends PhysEl
 {
 
-    private double velocity = 0;
+    private double vx, vy, fx, fy;
 
     WaterBlob()
     {
@@ -16,6 +16,12 @@ class WaterBlob extends PhysEl
     {
         int side=(l2x - l1x) * (py - l1y) - (l2y - l1y) * (px - l1x);
         return side;
+    }
+    
+    public void applyForce(double x, double y)
+    {
+        fx+=x;
+        fy+=y;    
     }
 
     public Boolean changesSide(Line l, double p1x, double p1y, double p2x, double p2y)
@@ -100,8 +106,13 @@ class WaterBlob extends PhysEl
         double nx, ny;
 
         double px = x, py = y;
-        ny = y + gravity;
-        nx = x;
+        applyForce(0, gravity);
+        ny = y + vy;
+        nx = x + vx;
+        vy+=fy;
+        vx+=fx;
+        fx=0;
+        fy=0;
         int[] newPos = new int[2];
 
         for(int i=0; i<PhysEl.physElements.size(); i++)
