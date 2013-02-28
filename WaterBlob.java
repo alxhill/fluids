@@ -85,8 +85,6 @@ class WaterBlob extends PhysEl
             }
             double ymov = l.gradient * (xmov) + l.con; //-1?
 
-            System.out.println("hi");
-
             //nx=x + xmov;
             //ny=ymov;
             rp[0]=(int)xmov;
@@ -124,7 +122,7 @@ class WaterBlob extends PhysEl
 
                 ///changes side of a line
                 if(first && changesSide(l, px, py, nx, ny) && i!=nskip)
-
+                {
                     int[] tPos=new int[2];
                     tPos=maxParticleMoveToLine(px, py, nx, ny, l, slide);
                     newPos=tPos;
@@ -135,7 +133,7 @@ class WaterBlob extends PhysEl
                     newPos=tPos;
                     slide=false;
                     continue;
-                                    }
+                }
                 else if(!first && changesSide(l, px, py, newPos[0], newPos[1]))
                 {
                     int[] tPos=new int[2];
