@@ -103,7 +103,7 @@ class WaterBlob extends PhysEl
         int[] newPos = new int[2];
         
         newPos[0]=0;
-        newPos[1]=1000000;
+        newPos[1]=0;
         
         Boolean slide=true;
         Boolean first=true;
@@ -151,113 +151,12 @@ class WaterBlob extends PhysEl
             y=ny;
         }
         
-
-        /*for(int i=0; i<PhysEl.physElements.size(); i++)
-        //for (PhysEl e : PhysEl.physElements)
-        {
-            if(PhysEl.physElements.get(i).type()=="L" && i!=nskip)
-            {   
-                Line l = (Line) PhysEl.physElements.get(i);
-                ///if it changes side of the line, update newpos with value from temporary
-                
-                if(changesSide(l, px, py, nx, ny))
-                {
-                    if(slide)
-                    {
-                        nskip=i;
-                        i=-1;
-                    }
-                    int[] tPos=new int[2];
-                    tPos=maxParticleMoveToLine(px, py, nx, ny, l, slide);
-                    newPos[0]=tPos[0];
-                    newPos[1]=Math.min(tPos[1], newPos[1]);
-                    slide=false;
-                }
-                
-                /*for (PhysEl n : PhysEl.physElements)
-                {
-                    if(n.type()=="L")
-                    {   
-                        Line lr = (Line) n;
-                        int[] newPos2 = new int[2];
-                        if(changesSide(lr, px, py, (double)newPos[0], (double)newPos[1]))
-                        {
-                            newPos2=maxParticleMoveToLine(px, py, (double)newPos[0], (double)newPos[1], lr, true);
-                            newPos[1] = Math.min(newPos2[1], newPos[1]);
-                        }
-                        
-                    }
-                }*/
-                
-                
-                ///if iswithin line
-                /*int symod=0;
-                int s1=side(l.lx[0], l.ly[0], l.lx[1], l.ly[1], (int)x, (int)y);
-                int s2=side(l.lx[0], l.ly[0], l.lx[1], l.ly[1], (int)nx, (int)ny);
-                
-                
-                int sign1=0, sign2=1;
-                
-                if(s1!=0 && s2!=0)
-                {
-                    sign1=(int)Math.signum(s1);
-                    sign2=(int)Math.signum(s2);
-                }
-
-                
-                
-                
-                ///particle should cross line boundary
-                if(sign1!=sign2)
-                {                    
-                
-                    double angle=l.angle;
-                    ///y component to move down = cos
-
-                    double downtheplane=Math.cos(angle)*gravity;
-                    
-                    double xmov=Math.cos(angle)*downtheplane;
-                    //double ymov=Math.sin(angle)*downtheplane;
-                    double ymov = l.gradient * (xmov + x) + l.con - 1;
-                    //y=mx+c;
-                    //System.out.println(l.gradient);
-                    
-                    if(angle < 0)
-                    {
-                        xmov=-xmov;
-                    }
-                    
-                    //System.out.println(angle);
-                    
-                    ///calculate byslope of line
-                    ///itll work fine if we do more checks to check this hasnt screwed up 
-                    nx=x + xmov;
-                    ny=ymov;
-                    
-                    ///go through lines, take f(x) of lines and take minimum - assumes connected OR repeat this process above
-                    
-                }
-                
-            }
-        }*/
-
-        /*if(slide)
-        {
-            x=nx;
-            y=ny;
-        }
-        else
-        {
-            x=newPos[0];
-            y=newPos[1];
-        }*/
     }
     
     public void setXY(int px, int py)
     {
         x=(double)px;
         y=(double)py;
-    
     }
 
     public void render(Graphics2D g)
