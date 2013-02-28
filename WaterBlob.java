@@ -22,6 +22,16 @@ class WaterBlob extends PhysEl
         int s1=side(l.lx[0], l.ly[0], l.lx[1], l.ly[1], (int)p1x, (int)p1y);
         int s2=side(l.lx[0], l.ly[0], l.lx[1], l.ly[1], (int)p2x, (int)p2y);
         
+        ///not quite a valid assumption, but should only generate very edge case minor errors
+        int minx=Math.min(l.lx[0], l.lx[1]);
+        int maxx=Math.max(l.lx[0], l.lx[1]);        
+        int miny=Math.min(l.ly[0], l.ly[1]);
+        int maxy=Math.max(l.ly[0], l.ly[1]);
+        if(!(p2x > minx && p2x < maxx && p2y > miny && p2y < maxy))
+        {
+            return false;
+        }
+        
         int sign1=0, sign2=1;
         
         int[] rp = new int[2];
@@ -45,23 +55,12 @@ class WaterBlob extends PhysEl
     {
         ///if iswithin line
         int symod=0;
-        int s1=side(l.lx[0], l.ly[0], l.lx[1], l.ly[1], (int)p1x, (int)p1y);
-        int s2=side(l.lx[0], l.ly[0], l.lx[1], l.ly[1], (int)p2x, (int)p2y);
-        
-        int sign1=0, sign2=1;
-        
         int[] rp = new int[2];
         
         rp[0]=(int)p2x;
         rp[1]=(int)p2y;
-        
-        if(s1!=0 && s2!=0)
-        {
-            sign1=(int)Math.signum(s1);
-            sign2=(int)Math.signum(s2);
-        }
 
-        if(sign1!=sign2)
+        if(changesSide(l, p1x, p1y, p2x, p2y))
         {
             //System.out.println("hi");
             double downtheplane=Math.cos(l.angle)*gravity;
@@ -81,7 +80,9 @@ class WaterBlob extends PhysEl
             {
                 xmov=(-(xmov - x)) + x;
             }
-            double ymov = l.gradient * (xmov) + l.con - 1;
+            double ymov = l.gradient * (xmov) + l.con; //-1?
+            
+            
 
             //nx=x + xmov;
             //ny=ymov;
@@ -116,7 +117,7 @@ class WaterBlob extends PhysEl
                 Line l = (Line) PhysEl.physElements.get(i);
                 
                 ///changes side of a line
-                if(changesSide(l, px, py, nx, ny) && first && i!=nskip)
+                if(first && changesSide(l, px, py, nx, ny) && i!=nskip)
                 {   
                 
                     int[] tPos=new int[2];

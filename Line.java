@@ -36,6 +36,7 @@ class Line extends PhysEl
         ly[0]=y1;
         lx[1]=x2;
         ly[1]=y2;
+        //System.out.println(gradient);
     }
 
     public void tick()
