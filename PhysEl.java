@@ -7,11 +7,10 @@ abstract class PhysEl extends Element
 
     abstract public void tick();
 
-    static public double gravity=9.8f;
+    static public double gravity=0.98f;
 
-    static public double simulationTime=0;    static public double tickTime=80.0;
-
-    ///1 tick every 20 ms
+    static public double simulationTime=0;
+    static public double tickTime=40.0;
 
     static private double time = System.nanoTime();
 
@@ -30,7 +29,7 @@ abstract class PhysEl extends Element
 
         int ticknum = 0;
         ticknum = (int)(simulationTime / tickTime);
-        
+
         for (PhysEl e : physElements)
         {
             for(int i = 0; i<ticknum; i++)
@@ -45,7 +44,7 @@ abstract class PhysEl extends Element
 
 
     ///would like to keep these two separated because rendering water will not be a straight per element render
-    
+
     public void physPush()
     {
         physElements.add(this);
