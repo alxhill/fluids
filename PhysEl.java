@@ -5,12 +5,14 @@ abstract class PhysEl extends Element
     static public ArrayList<PhysEl> physElements = new ArrayList<PhysEl>();
 
 
-    abstract public void tick();
+    abstract public void tick(int id);
 
-    static public double gravity=0.98f;
+    static public double gravity=0.098 * 4;
 
     static public double simulationTime=0;
     static public double tickTime=40.0;
+
+    ///1 tick every 20 ms
 
     static private double time = System.nanoTime();
 
@@ -31,9 +33,13 @@ abstract class PhysEl extends Element
         ticknum = (int)(simulationTime / tickTime);
 
         for (PhysEl e : physElements)
+
+        //for (PhysEl e : physElements)
+        for(int n=0; n<physElements.size(); n++)
         {
             for(int i = 0; i<ticknum; i++)
-                e.tick();
+                physElements.get(n).tick(i);
+            ///if out of bounds, remove element n
         }
 
         while(simulationTime>tickTime)

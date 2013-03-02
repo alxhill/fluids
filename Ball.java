@@ -19,7 +19,7 @@ class Ball extends PhysEl
         diammeter = 2 * r;
     }
 
-    public void tick()
+    public void tick(int id)
     {
         double c = (double)diammeter/2.0;
 

@@ -41,7 +41,7 @@ class Line extends PhysEl
         ly[1]=y2;
     }
 
-    public void tick()
+    public void tick(int id)
     {
 
     }

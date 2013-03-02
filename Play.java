@@ -29,27 +29,35 @@ class Play implements Runnable
 
         Line lin = new Line();
         lin.push();
-        lin.setLine(10, 160, 280, 280);
+        lin.setLine(10, 260, 380, 380);
         lin.physPush();
+        
         //need to do additional checks to check it isnt screwed up when it moves under waterblob
         Line lin2 = new Line();
         lin2.push();
-        lin2.setLine(180, 280,500, 100);
+        //lin2.setLine(180, 480, 500, 100);
+        lin2.setLine(280, 380, 600, 260);
         lin2.physPush();
+        
 
         ///currently falls through this
-        Line lin3 = new Line();
-        lin3.push();
-        lin3.setLine(20, 220, 500, 230);
-        lin3.physPush();
+        //Line lin3 = new Line();
+        //lin3.push();
+        //lin3.setLine(20, 220, 500, 230);
+        //lin3.physPush();
 
-        for(int i=50; i<100; i++)
+        for(int i=0; i<1000; i++)
         {
             WaterBlob wa = new WaterBlob();
-            wa.setXY(i*5, 0);
+            wa.setXY((int)(i*0.55), 0);
             wa.push();
             wa.physPush();
         }
+        
+        WaterBlob wa = new WaterBlob();
+        wa.setXY(495, 0);
+        wa.push();
+        wa.physPush();
 
         Ball b = new Ball();
         b.push();
@@ -64,7 +72,7 @@ class Play implements Runnable
     // Create the seesaw1 and animate it every second
     void animate()
     {
-        for (int i=0; i<1000; i++)
+        for (int i=0; i<10000; i++)
         {
             try { Thread.sleep(40); }
             catch (InterruptedException interruption) { }
