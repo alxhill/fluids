@@ -29,6 +29,9 @@ class Line extends PhysEl
     {
         gradient=(double)(y2-y1)/(x2-x1);
         angle=Math.atan2(y2-y1, x2-x1);
+        
+        //System.out.println(gradient);
+        //angle=-angle;
         //y1=gradient*x1 + con
         con=y1 - gradient*x1;
         lx[0]=x1;
@@ -38,7 +41,7 @@ class Line extends PhysEl
         //System.out.println(gradient);
     }
 
-    public void tick()
+    public void tick(int id)
     {
         ///lines do not need to do anything in a tick
 
