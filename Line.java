@@ -13,7 +13,7 @@ class Line extends PhysEl
     public double con;
 
     Line()
-    {
+    { 
         x=0; y=0; rot=0;
         lx = new int[2];
         ly = new int[2];

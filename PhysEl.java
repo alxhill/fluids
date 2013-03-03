@@ -12,7 +12,7 @@ abstract class PhysEl extends Element
     static public double simulationTime=0;    
     static public double tickTime=40.0;
 
-    ///1 tick every 20 ms
+    ///1 tick every 20 ms 
 
     static private double time = System.nanoTime();
 

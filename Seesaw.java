@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 class Seesaw extends Element
-{
+{ 
     private double angle;
 
     Seesaw(int x, int y, double start)

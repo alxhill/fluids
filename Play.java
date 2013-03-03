@@ -12,7 +12,7 @@ class Play implements Runnable
     }
 
     public static void main(String[] args)
-    {
+    { 
         Play program = new Play();
         SwingUtilities.invokeLater(program);
 
