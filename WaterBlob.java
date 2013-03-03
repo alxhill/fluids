@@ -232,7 +232,7 @@ class WaterBlob extends PhysEl
     }
     
     
-    public double[] waterBlobRepel(WaterBlob a, WaterBlob b)
+    /*public double[] waterBlobRepel(WaterBlob a, WaterBlob b)
     {
             double r2 = radius*2;
             double dx = b.x-a.x;
@@ -240,7 +240,7 @@ class WaterBlob extends PhysEl
     
     
     
-    }
+    }*/
     
     
     public double[] waterBlobRepel(WaterBlob a, WaterBlob b)
