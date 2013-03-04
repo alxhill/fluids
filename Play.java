@@ -1,6 +1,7 @@
 import javax.swing.*;
+import java.awt.event.*;
 
-class Play implements Runnable
+class Play implements Runnable, MouseListener, MouseMotionListener
 {
     private View view = new View();
     private Seesaw seesaw1 = new Seesaw(50, 100, -0.2);
@@ -8,11 +9,12 @@ class Play implements Runnable
 
     Play()
     {
-
+        view.addMouseListener(this);
+        view.addMouseMotionListener(this);
     }
 
     public static void main(String[] args)
-    { 
+    {
         Play program = new Play();
         SwingUtilities.invokeLater(program);
 
@@ -31,14 +33,14 @@ class Play implements Runnable
         lin.push();
         lin.setLine(10, 260, 380, 380);
         lin.physPush();
-        
+
         //need to do additional checks to check it isnt screwed up when it moves under waterblob
         Line lin2 = new Line();
         lin2.push();
         //lin2.setLine(180, 480, 500, 100);
         lin2.setLine(280, 380, 600, 260);
         lin2.physPush();
-        
+
 
         ///currently falls through this
         //Line lin3 = new Line();
@@ -46,14 +48,14 @@ class Play implements Runnable
         //lin3.setLine(20, 220, 500, 230);
         //lin3.physPush();
 
-        for(int i=0; i<1000; i++)
+        for(int i=0; i<100; i++)
         {
             WaterBlob wa = new WaterBlob();
-            wa.setXY((int)(i*0.55), 0);
+            wa.setXY((int)(i*5.5), 0);
             wa.push();
             wa.physPush();
         }
-        
+
         WaterBlob wa = new WaterBlob();
         wa.setXY(495, 0);
         wa.push();
@@ -86,4 +88,45 @@ class Play implements Runnable
             PhysEl.physTick();
         }
     }
+
+    /*** Mouse Input Functions ***/
+
+    private Boolean drawing = false;
+    Line beingDrawn;
+
+    // screw you java and your shitty requirements
+    public void mouseEntered(MouseEvent e) {}
+
+    public void mouseExited(MouseEvent e) {}
+
+    public void mouseReleased(MouseEvent e) {}
+
+    public void mousePressed(MouseEvent e) {}
+
+    public void mouseMoved(MouseEvent e)
+    {
+        if (drawing)
+        {
+            beingDrawn.lx[0] = e.getX();
+            beingDrawn.ly[0] = e.getY();
+        }
+    }
+
+    public void mouseClicked(MouseEvent e)
+    {
+        if (drawing)
+        {
+            beingDrawn.physPush();
+            drawing = false;
+        }
+        else
+        {
+            int x = e.getX(), y = e.getY();
+            beingDrawn = new Line(x, y, x, y);
+            beingDrawn.push();
+            drawing = true;
+        }
+    }
+
+
 }
