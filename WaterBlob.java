@@ -9,7 +9,7 @@ class WaterBlob extends PhysEl
 
     private static double lineFriction = 0.4;
 
-    public static double radius=2.5;
+    public static double radius=4;
 
     public Boolean c;
 
@@ -122,7 +122,7 @@ class WaterBlob extends PhysEl
             ret[1]=fy - 1;*/
 
             ///get out of jail free
-            double friction = 0.8;
+            double friction = 0.9;
             double fx=-vx;
             double fy=-vy;
 
@@ -202,7 +202,7 @@ class WaterBlob extends PhysEl
         p2x = b.x;
         p2y = b.y;
 
-        double maxRepel = 4;
+        double maxRepel = radius*8;
 
         double dx, dy;
 
@@ -221,23 +221,26 @@ class WaterBlob extends PhysEl
         if(distance < maxRepel && distance!=0)
         {
             double angle = Math.atan2(dy, dx);
-            double force = 1.0/distance;// / maxRepel;
-            //force = 1.0 - distance;
+            //double force = 1.0/distance;// / maxRepel;
+            double force = distance/maxRepel;
+            force = 1.0 - force;
 
-            force = force * 4.0;
+            force = force * 2;
+            
+            //force=force*8;
 
             //System.out.println(force);
 
-            if(force > 1.0)
+            if(force > 2.0)
             {
-                force=1.0;
+                force=2.0;
             }
 
-            double xf = -force * Math.sin(angle);
-            double yf = -force * Math.cos(angle);
+            double xf = -force * Math.cos(angle)/2.0;
+            double yf = -force * Math.sin(angle)/2.0;
             
-            b.fx+=-xf;
-            b.fy+=-yf;
+            b.fx+=-xf/2.0;
+            b.fy+=-yf/2.0;
 
             //yf=0;
             //xf=0;
@@ -271,7 +274,7 @@ class WaterBlob extends PhysEl
         double dx=b.x + v2x - a.x - v1x;
         double dy=b.y + v2y - a.y - v1y;
 
-        double tr=4;
+        double tr=radius;
         double distance=Math.sqrt(dx*dx + dy*dy);
         if(distance < tr*2)
         {
@@ -385,7 +388,7 @@ class WaterBlob extends PhysEl
 
 
 
-        double maxforce=1.0;
+        /*double maxforce=0.7;
         if(sumforce[0] > maxforce)
         {
             sumforce[0] = maxforce;
@@ -404,7 +407,7 @@ class WaterBlob extends PhysEl
         if(sumforce[1] < -maxforce)
         {
             sumforce[1] = -maxforce;
-        }
+        }*/
 
         fx+=sumforce[0];
         fy+=sumforce[1];
