@@ -24,20 +24,41 @@ class Line extends PhysEl
         this();
         setLine(x1, y1, x2, y2);
     }
+    
+    public void update()
+    {
+    
+    
+    }
 
     public void setLine(int x1, int y1, int x2, int y2)
     {
         gradient=(double)(y2-y1)/(x2-x1);
         angle=Math.atan2(y2-y1, x2-x1);
         
-        //System.out.println(gradient);
+        //System.out.println(x1);
+        //System.out.println(y1);
+        //System.out.println(x2);
+        //System.out.println(y2);
         //angle=-angle;
         //y1=gradient*x1 + con
         con=y1 - gradient*x1;
-        lx[0]=x1;
-        ly[0]=y1;
-        lx[1]=x2;
-        ly[1]=y2;
+        
+        //if(x1 < x2)
+        {
+            lx[0]=x1;
+            ly[0]=y1;
+            lx[1]=x2;
+            ly[1]=y2;
+        }   
+        
+        /*else
+        {
+            lx[1]=x1;
+            ly[1]=y1;
+            lx[0]=x2;
+            ly[0]=y2;
+        }*/
         //System.out.println(gradient);
     }
 

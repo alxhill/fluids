@@ -48,7 +48,7 @@ class Play implements Runnable, MouseListener, MouseMotionListener
         //lin3.setLine(20, 220, 500, 230);
         //lin3.physPush();
 
-        for(int i=0; i<100; i++)
+        for(int i=0; i<120; i++)
         {
             WaterBlob wa = new WaterBlob();
             wa.setXY((int)(i*5.5), 0);
@@ -102,6 +102,8 @@ class Play implements Runnable, MouseListener, MouseMotionListener
     public void mouseReleased(MouseEvent e) {}
 
     public void mousePressed(MouseEvent e) {}
+    
+    public void mouseDragged(MouseEvent e) {}
 
     public void mouseMoved(MouseEvent e)
     {

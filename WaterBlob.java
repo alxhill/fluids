@@ -11,9 +11,12 @@ class WaterBlob extends PhysEl
 
     public static double radius=2.5;
 
+    public Boolean c;
+
     WaterBlob()
     {
         x=0; y=0; rot=0;
+        c=false;
     }
 
     public int side(int l1x, int l1y, int l2x, int l2y, int px, int py)
@@ -192,13 +195,14 @@ class WaterBlob extends PhysEl
 
     public double[] waterBlobRepel(WaterBlob a, WaterBlob b)
     {
+
         double p1x, p1y, p2x, p2y;
         p1x = a.x;
         p1y = a.y;
         p2x = b.x;
         p2y = b.y;
 
-        double maxRepel = 2;
+        double maxRepel = 4;
 
         double dx, dy;
 
@@ -224,13 +228,16 @@ class WaterBlob extends PhysEl
 
             //System.out.println(force);
 
-            if(force > 2.0)
+            if(force > 1.0)
             {
-                force=2.0;
+                force=1.0;
             }
 
-            double xf = force * Math.sin(angle);
-            double yf = force * Math.cos(angle);
+            double xf = -force * Math.sin(angle);
+            double yf = -force * Math.cos(angle);
+            
+            b.fx+=-xf;
+            b.fy+=-yf;
 
             //yf=0;
             //xf=0;
@@ -247,16 +254,116 @@ class WaterBlob extends PhysEl
         return ret;
     }
 
+    public double[] waterBlobCollide(WaterBlob a, WaterBlob b)
+    {
+        double[] f = new double[2];
+        f[0]=0;
+        f[1]=0;
+
+
+        double v1x, v1y, v2x, v2y;
+
+        v1x=a.vx + a.fx;
+        v1y=a.vy + a.fy;
+        v2x=b.vx + b.fx;
+        v2y=b.vy + b.fy;
+
+        double dx=b.x + v2x - a.x - v1x;
+        double dy=b.y + v2y - a.y - v1y;
+
+        double tr=4;
+        double distance=Math.sqrt(dx*dx + dy*dy);
+        if(distance < tr*2)
+        {
+            double angle = Math.atan2(dy, dx);
+            ///transfer of momentum will do, all the same mass so transfer of velocity
+            /*f[0]=-v1x;
+            f[1]=-v1y;
+            double n1x, n1y, n2x, n2y;
+            n1x=v2x;
+            n1y=v2y;
+            n2x=v1x;
+            n2y=v1y;
+            f[0]+=n1x;
+            f[1]+=n1y;
+
+            /*a.fx=f[0];
+            a.fy=f[1];
+            b.fx=-v2x;
+            b.fy=-v2y;
+            b.fx+=n2x;
+            b.fy+=n2y;*/
+            
+            /*double edist = tr*2 - Math.sqrt(dx*dx + dy*dy);
+            edist=edist/(tr*2);
+            edist=0.3;
+
+
+
+
+            a.fx=v2x;
+            a.fy=v2y;
+            a.fx+=-Math.cos(angle)*edist;
+            a.fy+=-Math.sin(angle)*edist;
+
+            b.fx=v1x;
+            b.fy=v1y;
+            b.fx+=Math.cos(angle)*edist;
+            b.fy+=Math.sin(angle)*edist;
+
+            a.vx=0;
+            a.vy=0;
+            b.vx=0;
+            b.vy=0;*/
+            
+            double dampen=1.0;
+            
+            a.fx=(v2x + v1x)*dampen/2.0;
+            a.fy=(v2y + v1y)*dampen/2.0;
+            b.fx=(v2x + v1x)*dampen/2.0;
+            b.fy=(v2y + v1y)*dampen/2.0;
+            
+            ///plus enough to move it out of tr*2
+            
+            double xf=Math.cos(angle)*tr*2 - Math.cos(angle)*distance;
+            double yf=Math.sin(angle)*tr*2 - Math.sin(angle)*distance;
+            
+            a.fx -= xf/2.0;
+            a.fy -= yf/2.0;
+            b.fx += xf/2.0;
+            b.fy += yf/2.0;
+            
+            a.vx=0;
+            a.vy=0;
+            b.vx=0;
+            b.vy=0;
+         
+            
+            
+
+
+        }
+
+        //f[0]=0;
+        //f[1]=0;
+
+
+
+        return f;
+    }
+
     public void tick(int id)
     {
         double px = x, py = y;
 
-        fx=0;
-        fy=0;
+        //fx=0;
+        //fy=0;
 
         applyForce(0, gravity);
 
         double[] sumforce = new double[2];
+
+        double[] r2 = new double[2];
 
         for(int i = 0; i<PhysEl.physElements.size(); i++)
         {
@@ -264,10 +371,19 @@ class WaterBlob extends PhysEl
             if(el instanceof WaterBlob && id != i)
             {
                 double[] r = waterBlobRepel(this, (WaterBlob)el);
+
                 sumforce[0]+=r[0];
                 sumforce[1]+=r[1];
+                double[] r3=waterBlobCollide(this, (WaterBlob)el);
+                /*if(r3[0] != 0 || r3[1] != 0)
+                {
+                    System.out.println(r3[0]);
+                    break;
+                }*/
             }
         }
+
+
 
         double maxforce=1.0;
         if(sumforce[0] > maxforce)
@@ -293,6 +409,13 @@ class WaterBlob extends PhysEl
         fx+=sumforce[0];
         fy+=sumforce[1];
 
+        //fx=0.1;
+        //fy=1;
+        //fx+=this.fx;
+        //fy+=this.fy;
+
+
+
         for(int i = 0; i<PhysEl.physElements.size(); i++)
         {
             PhysEl el = PhysEl.physElements.get(i);
@@ -314,9 +437,20 @@ class WaterBlob extends PhysEl
         vx+=fx;
         vy+=fy;
 
-
         x+=vx;
         y+=vy;
+
+        fx=0;
+        fy=0;
+
+
+    }
+
+    public void update()
+    {
+
+
+        c=false;
     }
 
     public void setXY(int px, int py)
