@@ -76,16 +76,6 @@ class Play implements Runnable, MouseListener, MouseMotionListener
         {
             try { Thread.sleep(40); }
             catch (InterruptedException interruption) { }
-            if (i%8 < 4)
-            {
-                seesaw1.update(0.1);
-                seesaw2.update(-0.1);
-            }
-            else
-            {
-                seesaw1.update(-0.1);
-                seesaw2.update(0.1);
-            }
             view.tick();
             PhysEl.physTick();
         }

@@ -27,26 +27,27 @@ class Ball extends PhysEl
 
             if (el instanceof Line)
             {
-                // check if the distance from the centre of the circle to the
-                // point perpendicular to the line is greater or less than
-                // the radius of the circle.
-                
-                g.fillOval(x+c-0.1, y+c-0.1, x+c+0.1, y+c+0.1);
-
                 Line l = (Line) el;
-                // because who wants to find the gradient/angle of a line again?
-                Line ac = new Line(l.lx[0], l.lx[1], (int)(x+c), (int)(y+c));
+                
+                double x1 = l.lx[0] - x;
+                double y1 = l.ly[0] - y;
 
-                double theta = Math.abs(l.angle - ac.angle);
-                double dc = ac.length * Math.sin(theta);
+                double x2 = l.lx[1] - x;
+                double y2 = l.ly[1] - y;
 
-                if (dc < c)
+                double dx = x2 - x1;
+                double dy = y2 - y1;
+                double dr = Math.sqrt(dx*dx + dy*dy);
+                double d = x1*y2 - x2*y1;
+
+                double delta = Math.pow(c*0.9, 2)*dr*dr - d*d;
+
+                if (delta >= 0)
                 {
                     // BOOOOOOMMMMM
-                    ac.push();
                     System.out.println("COLLISION!!");
-                    force[0] = -velocity[0];
-                    force[1] = -velocity[1];
+                    force[0] = -1*velocity[0];
+                    force[1] = -1*velocity[1];
                 }
 
             }
@@ -57,15 +58,22 @@ class Ball extends PhysEl
 
         }
 
-        updateAndMove();
+        //updateAndMove();
     }
 
     public void render(Graphics2D g)
     {
         g.fillOval(0, 0, diammeter, diammeter);
+
+        // temporary dot in the centre
+        double c = (double)diammeter / 2.0;
+        g.setColor(Color.WHITE);
+        g.fillOval((int)c-3, (int)c-3, 6, 6);
+        g.setColor(Color.BLACK);
+
     }
 
-    private void updateAndMove()
+    public void update()
     {
         velocity[0] += force[0];
         velocity[1] += force[1];
