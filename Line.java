@@ -12,6 +12,8 @@ class Line extends PhysEl
 
     public double con;
 
+    public double length;
+
     Line()
     { 
         x=0; y=0; rot=0;
@@ -33,9 +35,11 @@ class Line extends PhysEl
 
     public void setLine(int x1, int y1, int x2, int y2)
     {
-        gradient=(double)(y2-y1)/(x2-x1);
-        angle=Math.atan2(y2-y1, x2-x1);
-        
+        int dy = y2 - y1;
+        int dx = x2 - x1;
+        gradient=(double)(dy)/(dx);
+        angle=Math.atan2(dy, dx);
+        length=Math.sqrt(dy*dy + dx*dx);
         //System.out.println(x1);
         //System.out.println(y1);
         //System.out.println(x2);

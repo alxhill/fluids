@@ -4,9 +4,7 @@ import java.awt.event.*;
 class Play implements Runnable, MouseListener, MouseMotionListener
 {
     private View view = new View();
-    private Seesaw seesaw1 = new Seesaw(50, 100, -0.2);
-    private Seesaw seesaw2 = new Seesaw(100,200, 0.2);
-
+    
     Play()
     {
         view.addMouseListener(this);
@@ -60,6 +58,10 @@ class Play implements Runnable, MouseListener, MouseMotionListener
         wa.setXY(495, 0);
         wa.push();
         wa.physPush();
+
+        Ball b = new Ball();
+        b.push();
+        b.physPush();
 
         w.add(view);
         w.pack();

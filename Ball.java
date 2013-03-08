@@ -30,6 +30,8 @@ class Ball extends PhysEl
                 // check if the distance from the centre of the circle to the
                 // point perpendicular to the line is greater or less than
                 // the radius of the circle.
+                
+                g.fillOval(x+c-0.1, y+c-0.1, x+c+0.1, y+c+0.1);
 
                 Line l = (Line) el;
                 // because who wants to find the gradient/angle of a line again?
@@ -41,6 +43,7 @@ class Ball extends PhysEl
                 if (dc < c)
                 {
                     // BOOOOOOMMMMM
+                    ac.push();
                     System.out.println("COLLISION!!");
                     force[0] = -velocity[0];
                     force[1] = -velocity[1];
