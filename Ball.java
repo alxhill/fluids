@@ -21,7 +21,7 @@ class Ball extends PhysEl
 
     public void tick(int id)
     {
-        double c = (double)diammeter/2.0;
+        double r = (double)diammeter/2.0;
 
         for (PhysEl el : PhysEl.physElements) {
 
@@ -29,25 +29,26 @@ class Ball extends PhysEl
             {
                 Line l = (Line) el;
                 
-                double x1 = l.lx[0] - x;
-                double y1 = l.ly[0] - y;
+                double x1 = l.lx[0] - x-r;
+                double y1 = l.ly[0] - y-r;
 
-                double x2 = l.lx[1] - x;
-                double y2 = l.ly[1] - y;
+                double x2 = l.lx[1] - x-r;
+                double y2 = l.ly[1] - y-r;
 
                 double dx = x2 - x1;
                 double dy = y2 - y1;
                 double dr = Math.sqrt(dx*dx + dy*dy);
                 double d = x1*y2 - x2*y1;
 
-                double delta = Math.pow(c*0.9, 2)*dr*dr - d*d;
+                double delta = r*r*dr*dr - d*d;
 
                 if (delta >= 0)
                 {
                     // BOOOOOOMMMMM
-                    System.out.println("COLLISION!!");
-                    force[0] = -1*velocity[0];
-                    force[1] = -1*velocity[1];
+                    // instead of 1.5 we'll use a multiple of its size
+                    force[0] = -1.5*velocity[0];
+                    force[1] = -1.5*velocity[1];
+                    break;
                 }
 
             }
@@ -64,13 +65,6 @@ class Ball extends PhysEl
     public void render(Graphics2D g)
     {
         g.fillOval(0, 0, diammeter, diammeter);
-
-        // temporary dot in the centre
-        double c = (double)diammeter / 2.0;
-        g.setColor(Color.WHITE);
-        g.fillOval((int)c-3, (int)c-3, 6, 6);
-        g.setColor(Color.BLACK);
-
     }
 
     public void update()

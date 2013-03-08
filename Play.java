@@ -59,7 +59,7 @@ class Play implements Runnable, MouseListener, MouseMotionListener
         wa.push();
         wa.physPush();
 
-        Ball b = new Ball();
+        Ball b = new Ball(10, 10, 20);
         b.push();
         b.physPush();
 
