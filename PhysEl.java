@@ -12,9 +12,11 @@ abstract class PhysEl extends Element
     static public double simulationTime=0;    
     static public double tickTime=40.0;
 
-    ///1 tick every 20 ms
+    ///1 tick every 20 ms 
 
     static private double time = System.nanoTime();
+    
+    abstract public void update();
 
     static void physTick()
     {
@@ -36,8 +38,14 @@ abstract class PhysEl extends Element
         for(int n=0; n<physElements.size(); n++)
         {
             for(int i = 0; i<ticknum; i++)
-                physElements.get(n).tick(i);
+                physElements.get(n).tick(n);
             ///if out of bounds, remove element n
+        }        
+        
+        for(int n=0; n<physElements.size(); n++)
+        {
+            for(int i = 0; i<ticknum; i++)
+                physElements.get(n).update();
         }
 
         while(simulationTime>tickTime)

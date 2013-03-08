@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 class View extends JPanel
-{
+{ 
 
     View()
     {
