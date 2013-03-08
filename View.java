@@ -28,7 +28,7 @@ class View extends JPanel
             ry=(int)Math.round(e.y);
             g.translate(rx, ry);
             e.render(g2);
-            g.translate(-rx, -ry);
+            g.translate(-1*rx, -1*ry);
         }
     }
 

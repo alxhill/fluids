@@ -59,10 +59,6 @@ class Play implements Runnable
         wa.push();
         wa.physPush();
 
-        Ball b = new Ball();
-        b.push();
-        b.physPush();
-
         w.add(view);
         w.pack();
         w.setLocationByPlatform(true);
