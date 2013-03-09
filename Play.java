@@ -1,14 +1,16 @@
 import javax.swing.*;
+
 import java.awt.event.*;
 
-class Play implements Runnable, MouseListener, MouseMotionListener
+class Play implements Runnable
 {
     private View view = new View();
     
     Play()
     {
-        view.addMouseListener(this);
-        view.addMouseMotionListener(this);
+        MouseHandler mouseHandler = new MouseHandler();
+        view.addMouseListener(mouseHandler);
+        view.addMouseMotionListener(mouseHandler);
     }
 
     public static void main(String[] args)
@@ -23,7 +25,7 @@ class Play implements Runnable, MouseListener, MouseMotionListener
     public void run()
     {
         JFrame w = new JFrame();
-        w.setDefaultCloseOperation(w.EXIT_ON_CLOSE);
+        w.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //seesaw1.push();
         //seesaw2.push();
 
@@ -32,7 +34,7 @@ class Play implements Runnable, MouseListener, MouseMotionListener
         lin.setLine(10, 260, 380, 380);
         lin.physPush();
 
-        //need to do additional checks to check it isnt screwed up when it moves under waterblob
+        //need to do additional checks to check it isn't screwed up when it moves under waterblob
         Line lin2 = new Line();
         lin2.push();
         //lin2.setLine(180, 480, 500, 100);
@@ -69,7 +71,6 @@ class Play implements Runnable, MouseListener, MouseMotionListener
         w.setVisible(true);
     }
 
-    // Create the seesaw1 and animate it every second
     void animate()
     {
         for (int i=0; i<10000; i++)
@@ -101,8 +102,7 @@ class Play implements Runnable, MouseListener, MouseMotionListener
     {
         if (drawing)
         {
-            beingDrawn.lx[0] = e.getX();
-            beingDrawn.ly[0] = e.getY();
+            beingDrawn.setLine(beingDrawn.lx[0], beingDrawn.ly[0], e.getX(), e.getY());
         }
     }
 

@@ -45,9 +45,8 @@ class Ball extends PhysEl
                 if (delta >= 0)
                 {
                     // BOOOOOOMMMMM
-                    // instead of 1.5 we'll use a multiple of its size
-                    force[0] = -1.5*velocity[0];
-                    force[1] = -1.5*velocity[1];
+                    force[0] = -0.045*diammeter*velocity[0];
+                    force[1] = -0.045*diammeter*velocity[1];
                     break;
                 }
 
