@@ -8,9 +8,13 @@ class Play implements Runnable
     
     Play()
     {
-        MouseHandler mouseHandler = new MouseHandler();
-        view.addMouseListener(mouseHandler);
-        view.addMouseMotionListener(mouseHandler);
+        InputHandler inputHandler = new InputHandler();
+        view.addMouseListener(inputHandler);
+        view.addMouseMotionListener(inputHandler);
+        
+        JButton button = new JButton("Toggle line/ball input");
+        button.addActionListener(inputHandler);
+        view.add(button);
     }
 
     public static void main(String[] args)
@@ -26,8 +30,8 @@ class Play implements Runnable
     {
         JFrame w = new JFrame();
         w.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //seesaw1.push();
-        //seesaw2.push();
+        // add button for control
+        
 
         Line lin = new Line();
         lin.push();

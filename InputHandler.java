@@ -1,9 +1,11 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 
-public class MouseHandler implements MouseListener, MouseMotionListener
+public class InputHandler implements MouseListener, MouseMotionListener, ActionListener
 {
     private enum Mode {
         BALL, LINE, DRAWINGLINE
@@ -14,7 +16,7 @@ public class MouseHandler implements MouseListener, MouseMotionListener
     Line beingDrawn;
     
     @Override
-    public void mouseDragged(MouseEvent arg0) {}
+    public void mouseDragged(MouseEvent e) {}
 
     @Override
     public void mouseMoved(MouseEvent e)
@@ -59,5 +61,16 @@ public class MouseHandler implements MouseListener, MouseMotionListener
 
     @Override
     public void mouseReleased(MouseEvent e) {}
+
+    @Override
+    public void actionPerformed(ActionEvent e)
+    {
+        System.out.println(e);
+        if (mode == Mode.BALL)
+            mode = Mode.LINE;
+        else
+            mode = Mode.BALL;
+        
+    }
 
 }
