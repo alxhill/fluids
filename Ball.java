@@ -41,10 +41,11 @@ class Ball extends PhysEl
                 double d = x1*y2 - x2*y1;
 
                 double delta = r*r*dr*dr - d*d;
-
+                
                 if (delta >= 0)
                 {
                     // BOOOOOOMMMMM
+                    // need to find a better way of doing this, it's quite unreliable.
                     force[0] = -0.045*diammeter*velocity[0];
                     force[1] = -0.045*diammeter*velocity[1];
                     break;
@@ -57,8 +58,6 @@ class Ball extends PhysEl
             }
 
         }
-
-        //updateAndMove();
     }
 
     public void render(Graphics2D g)

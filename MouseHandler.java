@@ -9,7 +9,7 @@ public class MouseHandler implements MouseListener, MouseMotionListener
         BALL, LINE, DRAWINGLINE
     };
     
-    private Mode mode = Mode.LINE;
+    private Mode mode = Mode.BALL;
     private Boolean drawing = false;
     Line beingDrawn;
     
@@ -32,6 +32,12 @@ public class MouseHandler implements MouseListener, MouseMotionListener
         {
             beingDrawn.physPush();
             mode = Mode.LINE;
+        }
+        else if (mode == Mode.BALL)
+        {
+            Ball b = new Ball(e.getX(), e.getY(), 10);
+            b.push();
+            b.physPush();
         }
         else
         {
