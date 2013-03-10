@@ -39,23 +39,9 @@ class Line extends PhysEl
         int dx = x2 - x1;
         gradient=(double)(dy)/(dx);
         angle=Math.atan2(dy, dx);
-		/*if(dx > 0.01)
-		{
-			angle = Math.atan(dy/dx);
-		}
-		else
-		{
-			angle=0;		
-		}*/
-		
 		
         length=Math.sqrt(dy*dy + dx*dx);
-        //System.out.println(x1);
-        //System.out.println(y1);
-        //System.out.println(x2);
-        //System.out.println(y2);
-        //angle=-angle;
-        //y1=gradient*x1 + con
+
         con=y1 - gradient*x1;
         
         if(x1 < x2)
@@ -73,7 +59,6 @@ class Line extends PhysEl
             lx[0]=x2;
             ly[0]=y2;
         }
-        //System.out.println(gradient);
     }
 
     public void tick(int id)
@@ -84,7 +69,6 @@ class Line extends PhysEl
 
     public void render(Graphics2D g)
     {
-        //g.fillOval(0, 0, 50, 50);
         g.drawLine(lx[0], ly[0], lx[1], ly[1]);
     }
 }

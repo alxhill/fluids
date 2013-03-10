@@ -37,16 +37,12 @@ public class InputHandler implements MouseListener, MouseMotionListener, ActionL
         }
         else if (mode == Mode.ball)
         {
-            //Ball b = new Ball(e.getX(), e.getY(), 10);
-            //b.push();
-            //b.physPush();
 			WaterBlob b = new WaterBlob();
 			b.setXY(e.getX(), e.getY());
 			b.push();
 			b.physPush();
 			b.setWater(false);
 			b.setMass(10);
-			
         }
 		else if (mode == Mode.water)
 		{
