@@ -28,7 +28,6 @@ class WaterBlob extends PhysEl
 	public void setMass(double value)
 	{
 		mass=value;	
-		radius=5*mass;
 	}
 
     public int side(int l1x, int l1y, int l2x, int l2y, int px, int py)
@@ -61,7 +60,7 @@ class WaterBlob extends PhysEl
         return ret;
     }
 
-    public Boolean changesSide(Line l, double p1x, double p1y, double p2x, double p2y, double radius)
+    public Boolean changesSide(Line l, double p1x, double p1y, double p2x, double p2y)
     {
         int s1=side(l.lx[0], l.ly[0], l.lx[1], l.ly[1], (int)p1x, (int)p1y);
         int s2=side(l.lx[0], l.ly[0], l.lx[1], l.ly[1], (int)p2x, (int)p2y);
@@ -98,7 +97,7 @@ class WaterBlob extends PhysEl
     }
 
     ///returns a force
-    public double[] moveToLine(Line l, double px, double py, double vx, double vy, double radius)
+    public double[] moveToLine(Line l, double px, double py, double vx, double vy)
     {
         double nx = px + vx;
         double ny = py + vy;
@@ -108,7 +107,7 @@ class WaterBlob extends PhysEl
         ret[1]=0;
         //x, y, vx, vy
 
-        if(changesSide(l, px, py, nx, ny, radius))
+        if(changesSide(l, px, py, nx, ny))
         {
             ///apply force equal to vy
             ///if x collides into line, need to convert to y + some x
@@ -150,14 +149,34 @@ class WaterBlob extends PhysEl
 			}
 
             fx+=(ax + vpx)*friction;
+			//fy+=(ay + vpy)*friction;
 			if(vy < 0)
-				fy+=(ay + vpy)*friction  + 0.5;
+				fy+=(ay + vpy)*friction  + 1.0;
 			else
-				fy+=(ay + vpy)*friction  - 0.5;
-
-
-
-
+				fy+=(ay + vpy)*friction  - 1.0;
+				
+			/*if(changesSide(l, px, py, px+fx, py+fy))
+			{
+				//fy-=2;
+				if(vy < 0)
+				{
+					fy-=1.0;
+				}
+				else
+				{
+					fy+=1.0;
+				}
+			}*/
+				
+			/*if(changesSide(l, px, py, px + fx, py + fy + (ay + vpy)*friction + 1.0))
+			{
+				fy+=(ay + vpy)*friction  - 1.0;
+			}
+			else
+			{
+				fy+=(ay + vpy)*friction  + 1.0;
+			}*/
+				
             ret[0]=fx;
             ret[1]=fy;
 
@@ -175,6 +194,14 @@ class WaterBlob extends PhysEl
         p1y = a.y;
         p2x = b.x;
         p2y = b.y;
+		
+		double fmul=1;
+		
+		if(!b.isWater)
+		{
+			fmul=0.2;
+			//return new double[2];		
+		}
 
         double maxRepel = radius*8;
 
@@ -202,6 +229,8 @@ class WaterBlob extends PhysEl
             {
                 force=2.0;
             }
+			
+			force=force*fmul;
 
             double xf = -force * Math.cos(angle)/2.0;
             double yf = -force * Math.sin(angle)/2.0;
@@ -222,7 +251,7 @@ class WaterBlob extends PhysEl
         double[] f = new double[2];
         f[0]=0;
         f[1]=0;
-
+		
 
         double v1x, v1y, v2x, v2y;
 
@@ -283,16 +312,22 @@ class WaterBlob extends PhysEl
             PhysEl el = PhysEl.physElements.get(i);
             if(el instanceof WaterBlob && id != i)
             {
-                double[] r = waterBlobRepel(this, (WaterBlob)el);
+				double[] r;;
+				r = waterBlobRepel(this, (WaterBlob)el);
 
                 sumforce[0]+=r[0];
                 sumforce[1]+=r[1];
-                double[] r3=waterBlobCollide(this, (WaterBlob)el);
+				
+                double[] r3;
+				r3 = waterBlobCollide(this, (WaterBlob)el);
             }
         }
 
         fx+=sumforce[0];
         fy+=sumforce[1];
+		
+		int crashprevent = PhysEl.physElements.size() * 10;
+		int crashcounter=0;
 
         for(int i = 0; i<PhysEl.physElements.size(); i++)
         {
@@ -300,12 +335,18 @@ class WaterBlob extends PhysEl
             if(el instanceof Line)
             {
                 Line l = (Line) el;
-                if(changesSide(l, px, py, px + vx + fx, py + vy + fy, radius))
+                if(changesSide(l, px, py, px + vx + fx, py + vy + fy))
                 {
-                    double[] force = moveToLine(l, px, py, vx + fx, vy + fy, radius);
+                    double[] force = moveToLine(l, px, py, vx + fx, vy + fy);
 
                     fx+=force[0];
                     fy+=force[1];
+					crashcounter++;
+					if(crashcounter > crashprevent)
+					{
+						break;
+					}
+					i=-1;
                 }
             }
         }
@@ -335,7 +376,19 @@ class WaterBlob extends PhysEl
 
     public void render(Graphics2D g)
     {
-        g.fillOval(0, 0, (int)mass*5, (int)mass*5);
+		if(isWater)
+		{
+			g.setColor(java.awt.Color.blue);
+		}
+		else
+		{
+			g.setColor(java.awt.Color.black);
+		}
+
+		if(isWater)
+			g.fillOval(0, 0, 5*1, 5*1);	
+		else
+			g.fillOval(0, 0, 5*1, 5*1);
     }
 
 }

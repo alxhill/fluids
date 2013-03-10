@@ -49,12 +49,14 @@ class Play implements Runnable
             wa.setXY((int)(i*5.5), 0);
             wa.push();
             wa.physPush();
+			//wa.setWater(false);
         }
 
         WaterBlob wa = new WaterBlob();
         wa.setXY(495, 0);
         wa.push();
         wa.physPush();
+		
 
         w.add(view);
         w.pack();

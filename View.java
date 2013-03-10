@@ -24,8 +24,7 @@ class View extends JPanel
         for (Element e : Element.elements)
         {
             int rx, ry;
-			double stime=PhysEl.simulationTime;
-			double ttime=PhysEl.tickTime;
+			
             rx=(int)Math.round(e.x);
             ry=(int)Math.round(e.y);
             g.translate(rx, ry);

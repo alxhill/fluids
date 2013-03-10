@@ -44,7 +44,7 @@ public class InputHandler implements MouseListener, MouseMotionListener, ActionL
 			b.push();
 			b.physPush();
 			b.setWater(false);
-			b.setMass(10);
+			b.setMass(1);
         }
 		else if (mode == Mode.water)
 		{
