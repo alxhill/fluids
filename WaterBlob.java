@@ -28,7 +28,6 @@ class WaterBlob extends PhysEl
 	public void setMass(double value)
 	{
 		mass=value;	
-		//radius=5*mass;
 	}
 
     public int side(int l1x, int l1y, int l2x, int l2y, int px, int py)
@@ -150,16 +149,12 @@ class WaterBlob extends PhysEl
 			}
 
             fx+=(ax + vpx)*friction;
+			
 			if(vy < 0)
-				fy+=(ay + vpy)*friction  + 0.5;
+				fy+=(ay + vpy)*friction  + 1.0;
 			else
-				fy+=(ay + vpy)*friction  - 0.5;
+				fy+=(ay + vpy)*friction  - 1.0;
 				
-			//fy+=(ay + vpy)*friction;
-
-
-
-
             ret[0]=fx;
             ret[1]=fy;
 
@@ -353,7 +348,11 @@ class WaterBlob extends PhysEl
 		{
 			g.setColor(java.awt.Color.black);
 		}
-        g.fillOval(0, 0, 5, 5);
+
+		if(isWater)
+			g.fillOval(0, 0, 5*1, 5*1);	
+		else
+			g.fillOval(0, 0, 5*1, 5*1);
     }
 
 }
