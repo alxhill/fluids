@@ -14,6 +14,7 @@ class Play implements Runnable
         addButton("Add ball");
         addButton("Add water");
         addButton("Add line");
+        addButton("Toggle water rendering");
     }
     
     private void addButton(String text)

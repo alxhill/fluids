@@ -7,7 +7,8 @@ import java.io.IOException;
 
 class WaterBlob extends PhysEl
 {
-
+    public static Boolean renderWater = true;
+    
     private double vx, vy, fx, fy;
 
     private double radius=4;
@@ -387,8 +388,10 @@ class WaterBlob extends PhysEl
 
 		if(isWater)
 		{
-		    g.drawImage(waterImage, -50, -50, null);
-			//g.fillOval(0, 0, 5, 5);	
+		    if (WaterBlob.renderWater)
+		        g.drawImage(waterImage, -25, -25, null);
+		    else
+		        g.fillOval(0, 0, 5, 5);	
 		}
 		else
 			g.fillOval(0, 0, 10, 10);

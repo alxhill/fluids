@@ -48,10 +48,14 @@ public class InputHandler implements MouseListener, MouseMotionListener, ActionL
         }
 		else if (mode == Mode.water)
 		{
-			WaterBlob b = new WaterBlob();
-			b.setXY(e.getX(), e.getY());
-			b.push();
-			b.physPush();
+		    int n = 5;
+		    while (n-->0)
+		    {
+		        WaterBlob b = new WaterBlob();
+			    b.setXY((int) (e.getX()+n*10*Math.pow(-1, n)), e.getY());
+			    b.push();
+			    b.physPush();
+		    }
 		}
         else
         {
@@ -69,10 +73,7 @@ public class InputHandler implements MouseListener, MouseMotionListener, ActionL
     public void mouseExited(MouseEvent e) {}
 
     @Override
-    public void mousePressed(MouseEvent e)
-    {
-        
-    }
+    public void mousePressed(MouseEvent e) {}
 
     @Override
     public void mouseReleased(MouseEvent e) {}
@@ -89,6 +90,8 @@ public class InputHandler implements MouseListener, MouseMotionListener, ActionL
             mode = Mode.line;
         else if (buttonText == "Add water")
             mode = Mode.water;
+        else if (buttonText.startsWith("Toggle "))
+            WaterBlob.renderWater = !WaterBlob.renderWater;
         
     }
 
