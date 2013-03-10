@@ -98,7 +98,7 @@ class WaterBlob extends PhysEl
     }
 
     ///returns a force
-    public double[] moveToLine(Line l, double px, double py, double vx, double vy)
+    public double[] moveToLine(Line l, double px, double py, double vx, double vy, double radius)
     {
         double nx = px + vx;
         double ny = py + vy;
@@ -108,7 +108,7 @@ class WaterBlob extends PhysEl
         ret[1]=0;
         //x, y, vx, vy
 
-        if(changesSide(l, px, py, nx, ny))
+        if(changesSide(l, px, py, nx, ny, radius))
         {
             ///apply force equal to vy
             ///if x collides into line, need to convert to y + some x
@@ -300,9 +300,9 @@ class WaterBlob extends PhysEl
             if(el instanceof Line)
             {
                 Line l = (Line) el;
-                if(changesSide(l, px, py, px + vx + fx, py + vy + fy))
+                if(changesSide(l, px, py, px + vx + fx, py + vy + fy, radius))
                 {
-                    double[] force = moveToLine(l, px, py, vx + fx, vy + fy);
+                    double[] force = moveToLine(l, px, py, vx + fx, vy + fy, radius);
 
                     fx+=force[0];
                     fy+=force[1];

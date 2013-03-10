@@ -33,8 +33,7 @@ abstract class PhysEl extends Element
 
         int ticknum = 0;
         ticknum = (int)(simulationTime / tickTime);
-        
-        //for (PhysEl e : physElements)
+
         for(int n=0; n<physElements.size(); n++)
         {
             for(int i = 0; i<ticknum; i++)

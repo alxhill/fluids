@@ -38,19 +38,10 @@ class Play implements Runnable
         lin.setLine(10, 260, 380, 380);
         lin.physPush();
 
-        //need to do additional checks to check it isn't screwed up when it moves under waterblob
         Line lin2 = new Line();
         lin2.push();
-        //lin2.setLine(180, 480, 500, 100);
         lin2.setLine(280, 380, 600, 260);
         lin2.physPush();
-
-
-        ///currently falls through this
-        //Line lin3 = new Line();
-        //lin3.push();
-        //lin3.setLine(20, 220, 500, 230);
-        //lin3.physPush();
 
         for(int i=0; i<120; i++)
         {
@@ -73,10 +64,9 @@ class Play implements Runnable
 
     void animate()
     {
-        //for (int i=0; i<10000; i++)
 		while(true)
         {
-            try { Thread.sleep(40); }
+            try { Thread.sleep(20); }
             catch (InterruptedException interruption) { }
             view.tick();
             PhysEl.physTick();
