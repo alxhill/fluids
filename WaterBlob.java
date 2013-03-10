@@ -154,6 +154,8 @@ class WaterBlob extends PhysEl
 				fy+=(ay + vpy)*friction  + 0.5;
 			else
 				fy+=(ay + vpy)*friction  - 0.5;
+				
+			//fy+=(ay + vpy)*friction;
 
 
 
@@ -176,7 +178,7 @@ class WaterBlob extends PhysEl
         p2x = b.x;
         p2y = b.y;
 		
-		if(!a.isWater || !b.isWater)
+		if(!b.isWater)
 		{
 			return new double[2];		
 		}
@@ -288,9 +290,8 @@ class WaterBlob extends PhysEl
             PhysEl el = PhysEl.physElements.get(i);
             if(el instanceof WaterBlob && id != i)
             {
-				double[] r = new double[2];
-				if(isWater)
-					r = waterBlobRepel(this, (WaterBlob)el);
+				double[] r;;
+				r = waterBlobRepel(this, (WaterBlob)el);
 
                 sumforce[0]+=r[0];
                 sumforce[1]+=r[1];
