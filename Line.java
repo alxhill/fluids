@@ -69,6 +69,7 @@ class Line extends PhysEl
 
     public void render(Graphics2D g)
     {
+        g.setColor(Color.BLACK);
         g.drawLine(lx[0], ly[0], lx[1], ly[1]);
     }
 }

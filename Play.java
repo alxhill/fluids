@@ -5,14 +5,20 @@ import java.awt.event.*;
 class Play implements Runnable
 {
     private View view = new View();
-    
+    private InputHandler inputHandler = new InputHandler();
     Play()
     {
-        InputHandler inputHandler = new InputHandler();
         view.addMouseListener(inputHandler);
         view.addMouseMotionListener(inputHandler);
         
-        JButton button = new JButton("Toggle ball/water/line");
+        addButton("Add ball");
+        addButton("Add water");
+        addButton("Add line");
+    }
+    
+    private void addButton(String text)
+    {
+        JButton button = new JButton(text);
         button.addActionListener(inputHandler);
         view.add(button);
     }

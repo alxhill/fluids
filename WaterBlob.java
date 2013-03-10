@@ -1,28 +1,37 @@
-import java.util.ArrayList;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 class WaterBlob extends PhysEl
 {
 
     private double vx, vy, fx, fy;
 
-    private static double radius=4;
+    private double radius=4;
 
     private Boolean isWater;
 	
 	private double mass;
 
+	private Image waterImage;
+	
     WaterBlob()
     {
         x=0; y=0; rot=0;
 		isWater=true;
 		mass=1;
+		try {
+		waterImage = ImageIO.read(new File("water.png"));
+		} catch (IOException e) {}
     }
 	
 	public void setWater(Boolean p)
 	{
 		isWater=p;
+		//radius = p ? 4 : 20;
 	}
 	
 	public void setMass(double value)
@@ -188,22 +197,15 @@ class WaterBlob extends PhysEl
 
     public double[] waterBlobRepel(WaterBlob a, WaterBlob b)
     {
-
-        double p1x, p1y, p2x, p2y;
-        p1x = a.x;
-        p1y = a.y;
-        p2x = b.x;
-        p2y = b.y;
 		
 		double fmul=1;
+		double maxRepel = radius*8;
 		
 		if(!b.isWater)
 		{
 			fmul=0.2;
 			//return new double[2];		
 		}
-
-        double maxRepel = radius*8;
 
         double dx, dy;
 
@@ -262,15 +264,13 @@ class WaterBlob extends PhysEl
 
         double dx=b.x + v2x - a.x - v1x;
         double dy=b.y + v2y - a.y - v1y;
-
+        
         double tr=radius;
         double distance=Math.sqrt(dx*dx + dy*dy);
         if(distance < tr*2)
         {
             double angle = Math.atan2(dy, dx);
-            ///transfer of momentum will do, all the same mass so transfer of velocity
-
-            
+            ///transfer of momentum will do, all the same mass so transfer of velocity            
             double dampen=1.0;
             
             a.fx=(v2x + v1x)*dampen/2.0;
@@ -386,9 +386,12 @@ class WaterBlob extends PhysEl
 		}
 
 		if(isWater)
-			g.fillOval(0, 0, 5*1, 5*1);	
+		{
+		    g.drawImage(waterImage, -50, -50, null);
+			//g.fillOval(0, 0, 5, 5);	
+		}
 		else
-			g.fillOval(0, 0, 5*1, 5*1);
+			g.fillOval(0, 0, 10, 10);
     }
 
 }

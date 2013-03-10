@@ -10,7 +10,7 @@ import javax.swing.JButton;
 public class InputHandler implements MouseListener, MouseMotionListener, ActionListener
 {
     private enum Mode {
-        ball, line, drawLine, water
+        ball, line, drawLine, water, emitWater
     };
     
     private Mode mode = Mode.ball;
@@ -69,7 +69,10 @@ public class InputHandler implements MouseListener, MouseMotionListener, ActionL
     public void mouseExited(MouseEvent e) {}
 
     @Override
-    public void mousePressed(MouseEvent e) {}
+    public void mousePressed(MouseEvent e)
+    {
+        
+    }
 
     @Override
     public void mouseReleased(MouseEvent e) {}
@@ -78,16 +81,13 @@ public class InputHandler implements MouseListener, MouseMotionListener, ActionL
     public void actionPerformed(ActionEvent e)
     {
         JButton button = (JButton) e.getSource();
-        if (button.getText() == "Add balls")
-        {
-            // thing
-        }
-        //System.out.println(e);
-        if (mode == Mode.water)
+        String buttonText = button.getText();
+        
+        if (buttonText == "Add ball")
+            mode = Mode.ball;
+        else if (buttonText == "Add line")
             mode = Mode.line;
-        else if(mode == Mode.line)
-            mode = Mode.ball;        
-		else if(mode == Mode.ball)
+        else if (buttonText == "Add water")
             mode = Mode.water;
         
     }
