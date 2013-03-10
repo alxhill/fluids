@@ -7,17 +7,29 @@ class WaterBlob extends PhysEl
 
     private double vx, vy, fx, fy;
 
-    private static double lineFriction = 0.4;
+    private static double radius=4;
 
-    public static double radius=4;
-
-    public Boolean c;
+    private Boolean isWater;
+	
+	private double mass;
 
     WaterBlob()
     {
         x=0; y=0; rot=0;
-        c=false;
+		isWater=true;
+		mass=1;
     }
+	
+	public void setWater(Boolean p)
+	{
+		isWater=p;
+	}
+	
+	public void setMass(double value)
+	{
+		mass=value;	
+		radius=5*mass;
+	}
 
     public int side(int l1x, int l1y, int l2x, int l2y, int px, int py)
     {
@@ -49,7 +61,7 @@ class WaterBlob extends PhysEl
         return ret;
     }
 
-    public Boolean changesSide(Line l, double p1x, double p1y, double p2x, double p2y)
+    public Boolean changesSide(Line l, double p1x, double p1y, double p2x, double p2y, double radius)
     {
         int s1=side(l.lx[0], l.ly[0], l.lx[1], l.ly[1], (int)p1x, (int)p1y);
         int s2=side(l.lx[0], l.ly[0], l.lx[1], l.ly[1], (int)p2x, (int)p2y);
@@ -458,8 +470,6 @@ class WaterBlob extends PhysEl
     public void update()
     {
 
-
-        c=false;
     }
 
     public void setXY(int px, int py)
@@ -470,7 +480,7 @@ class WaterBlob extends PhysEl
 
     public void render(Graphics2D g)
     {
-        g.fillOval(0, 0, 5, 5);
+        g.fillOval(0, 0, (int)mass*5, (int)mass*5);
     }
 
 }

@@ -65,9 +65,9 @@ class Play implements Runnable
         wa.push();
         wa.physPush();
 
-        Ball b = new Ball(10, 10, 20);
-        b.push();
-        b.physPush();
+       // Ball b = new Ball(10, 10, 20);
+        //b.push();
+        //b.physPush();
 
         w.add(view);
         w.pack();
@@ -92,7 +92,6 @@ class Play implements Runnable
     private Boolean drawing = false;
     Line beingDrawn;
 
-    // screw you java and your shitty requirements
     public void mouseEntered(MouseEvent e) {}
 
     public void mouseExited(MouseEvent e) {}
