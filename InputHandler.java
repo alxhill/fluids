@@ -4,6 +4,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
+import javax.swing.JButton;
+
 
 public class InputHandler implements MouseListener, MouseMotionListener, ActionListener
 {
@@ -75,6 +77,11 @@ public class InputHandler implements MouseListener, MouseMotionListener, ActionL
     @Override
     public void actionPerformed(ActionEvent e)
     {
+        JButton button = (JButton) e.getSource();
+        if (button.getText() == "Add balls")
+        {
+            // thing
+        }
         //System.out.println(e);
         if (mode == Mode.water)
             mode = Mode.line;
