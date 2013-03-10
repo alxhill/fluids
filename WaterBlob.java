@@ -61,7 +61,7 @@ class WaterBlob extends PhysEl
         return ret;
     }
 
-    public Boolean changesSide(Line l, double p1x, double p1y, double p2x, double p2y, double radius)
+    public Boolean changesSide(Line l, double p1x, double p1y, double p2x, double p2y)
     {
         int s1=side(l.lx[0], l.ly[0], l.lx[1], l.ly[1], (int)p1x, (int)p1y);
         int s2=side(l.lx[0], l.ly[0], l.lx[1], l.ly[1], (int)p2x, (int)p2y);
@@ -98,7 +98,7 @@ class WaterBlob extends PhysEl
     }
 
     ///returns a force
-    public double[] moveToLine(Line l, double px, double py, double vx, double vy, double radius)
+    public double[] moveToLine(Line l, double px, double py, double vx, double vy)
     {
         double nx = px + vx;
         double ny = py + vy;
@@ -108,7 +108,7 @@ class WaterBlob extends PhysEl
         ret[1]=0;
         //x, y, vx, vy
 
-        if(changesSide(l, px, py, nx, ny, radius))
+        if(changesSide(l, px, py, nx, ny))
         {
             ///apply force equal to vy
             ///if x collides into line, need to convert to y + some x
@@ -309,9 +309,9 @@ class WaterBlob extends PhysEl
             if(el instanceof Line)
             {
                 Line l = (Line) el;
-                if(changesSide(l, px, py, px + vx + fx, py + vy + fy, 1.0))
+                if(changesSide(l, px, py, px + vx + fx, py + vy + fy))
                 {
-                    double[] force = moveToLine(l, px, py, vx + fx, vy + fy, 1.0);
+                    double[] force = moveToLine(l, px, py, vx + fx, vy + fy);
 
                     fx+=force[0];
                     fy+=force[1];
@@ -344,6 +344,14 @@ class WaterBlob extends PhysEl
 
     public void render(Graphics2D g)
     {
+		if(isWater)
+		{
+			g.setColor(java.awt.Color.blue);
+		}
+		else
+		{
+			g.setColor(java.awt.Color.black);
+		}
         g.fillOval(0, 0, 5, 5);
     }
 
