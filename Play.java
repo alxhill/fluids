@@ -1,22 +1,22 @@
 import javax.swing.*;
-
 import java.awt.event.*;
 
 class Play implements Runnable
 {
-    private View view = new View();
+    private View         view         = new View();
     private InputHandler inputHandler = new InputHandler();
+
     Play()
     {
         view.addMouseListener(inputHandler);
         view.addMouseMotionListener(inputHandler);
-        
+
         addButton("Add ball");
         addButton("Add water");
         addButton("Add line");
         addButton("Toggle water rendering");
     }
-    
+
     private void addButton(String text)
     {
         JButton button = new JButton(text);
@@ -38,32 +38,30 @@ class Play implements Runnable
         JFrame w = new JFrame();
         w.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // add button for control
-        
 
         Line lin = new Line();
+        lin.setLine(30, 460, 380, 380);
         lin.push();
-        lin.setLine(10, 260, 380, 380);
         lin.physPush();
 
         Line lin2 = new Line();
-        lin2.push();
         lin2.setLine(280, 380, 600, 260);
+        lin2.push();
         lin2.physPush();
 
-        for(int i=0; i<120; i++)
+        for (int i = 0; i < 120; i++)
         {
             WaterBlob wa = new WaterBlob();
-            wa.setXY((int)(i*5.5), 0);
+            wa.setXY((int) (i * 5.5), 0);
             wa.push();
             wa.physPush();
-			//wa.setWater(false);
+            // wa.setWater(false);
         }
 
         WaterBlob wa = new WaterBlob();
         wa.setXY(495, 0);
         wa.push();
         wa.physPush();
-		
 
         w.add(view);
         w.pack();
@@ -73,10 +71,15 @@ class Play implements Runnable
 
     void animate()
     {
-		while(true)
+        while (true)
         {
-            try { Thread.sleep(20); }
-            catch (InterruptedException interruption) { }
+            try
+            {
+                Thread.sleep(20);
+            }
+            catch (InterruptedException interruption)
+            {
+            }
             view.tick();
             PhysEl.physTick();
         }
@@ -85,23 +88,34 @@ class Play implements Runnable
     /*** Mouse Input Functions ***/
 
     private Boolean drawing = false;
-    Line beingDrawn;
+    Line            beingDrawn;
 
-    public void mouseEntered(MouseEvent e) {}
+    public void mouseEntered(MouseEvent e)
+    {
+    }
 
-    public void mouseExited(MouseEvent e) {}
+    public void mouseExited(MouseEvent e)
+    {
+    }
 
-    public void mouseReleased(MouseEvent e) {}
+    public void mouseReleased(MouseEvent e)
+    {
+    }
 
-    public void mousePressed(MouseEvent e) {}
-    
-    public void mouseDragged(MouseEvent e) {}
+    public void mousePressed(MouseEvent e)
+    {
+    }
+
+    public void mouseDragged(MouseEvent e)
+    {
+    }
 
     public void mouseMoved(MouseEvent e)
     {
         if (drawing)
         {
-            beingDrawn.setLine(beingDrawn.lx[0], beingDrawn.ly[0], e.getX(), e.getY());
+            beingDrawn.setLine(beingDrawn.lx[0], beingDrawn.ly[0], e.getX(),
+                e.getY());
         }
     }
 
@@ -120,6 +134,5 @@ class Play implements Runnable
             drawing = true;
         }
     }
-
 
 }
