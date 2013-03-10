@@ -40,14 +40,15 @@ class Play implements Runnable
         // add button for control
 
         Line lin = new Line();
-        lin.setLine(322, 498, 682, 317);
         lin.push();
+        lin.setLine(10, 260, 380, 380);
         lin.physPush();
 
         Line lin2 = new Line();
-        lin2.setLine(51, 308, 322, 498);
         lin2.push();
+        lin2.setLine(280, 380, 600, 260);
         lin2.physPush();
+
 
         for (int i = 0; i < 120; i++)
         {

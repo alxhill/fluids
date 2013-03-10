@@ -303,6 +303,9 @@ class WaterBlob extends PhysEl
 
                 sumforce[0] += r[0];
                 sumforce[1] += r[1];
+				
+				double[] r3;
+				r3 = waterBlobCollide(this, (WaterBlob)el);
 
             }
         }
