@@ -134,9 +134,13 @@ class WaterBlob extends PhysEl
 
             //double angle = -l.angle  + 3.141592*3.0/2.0;
             double angle = l.angle;
+			//double pangle = Math.atan2((vy), (vx));
+			//angle+=Math.abs(pangle);
 
             double along = h * Math.cos(angle);
             double perp  = h * Math.sin(angle);
+			
+			
 
             //perp=-perp;
 
@@ -152,15 +156,14 @@ class WaterBlob extends PhysEl
             }
 
             double ax = along * Math.sin(angle);
-            if(angle < 0)
-            {
-                //ax=-ax;
-            }
-
-
-
+            
 
             double ay = -along * Math.cos(angle);
+			
+			if(vy < 0)
+			{
+				ay=-ay;
+			}
 
             if(angle < 0)
             {
@@ -179,7 +182,10 @@ class WaterBlob extends PhysEl
 
 
             fx+=(ax + vpx)*friction;
-            fy+=(ay + vpy)*friction - 0.5;
+			if(vy < 0)
+				fy+=(ay + vpy)*friction  + 0.5;
+			else
+				fy+=(ay + vpy)*friction  - 0.5;
 
 
 

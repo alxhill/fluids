@@ -39,6 +39,16 @@ class Line extends PhysEl
         int dx = x2 - x1;
         gradient=(double)(dy)/(dx);
         angle=Math.atan2(dy, dx);
+		/*if(dx > 0.01)
+		{
+			angle = Math.atan(dy/dx);
+		}
+		else
+		{
+			angle=0;		
+		}*/
+		
+		
         length=Math.sqrt(dy*dy + dx*dx);
         //System.out.println(x1);
         //System.out.println(y1);
@@ -48,7 +58,7 @@ class Line extends PhysEl
         //y1=gradient*x1 + con
         con=y1 - gradient*x1;
         
-        //if(x1 < x2)
+        if(x1 < x2)
         {
             lx[0]=x1;
             ly[0]=y1;
@@ -56,13 +66,13 @@ class Line extends PhysEl
             ly[1]=y2;
         }   
         
-        /*else
+        else
         {
             lx[1]=x1;
             ly[1]=y1;
             lx[0]=x2;
             ly[0]=y2;
-        }*/
+        }
         //System.out.println(gradient);
     }
 

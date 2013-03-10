@@ -8,10 +8,10 @@ import java.awt.event.MouseMotionListener;
 public class InputHandler implements MouseListener, MouseMotionListener, ActionListener
 {
     private enum Mode {
-        BALL, LINE, DRAWINGLINE
+        ball, line, drawLine, water
     };
     
-    private Mode mode = Mode.BALL;
+    private Mode mode = Mode.ball;
     private Boolean drawing = false;
     Line beingDrawn;
     
@@ -21,7 +21,7 @@ public class InputHandler implements MouseListener, MouseMotionListener, ActionL
     @Override
     public void mouseMoved(MouseEvent e)
     {
-        if (mode == Mode.DRAWINGLINE)
+        if (mode == Mode.drawLine)
         {
             beingDrawn.setLine(beingDrawn.lx[0], beingDrawn.ly[0], e.getX(), e.getY());
         }
@@ -30,23 +30,30 @@ public class InputHandler implements MouseListener, MouseMotionListener, ActionL
     @Override
     public void mouseClicked(MouseEvent e)
     {
-        if (mode == Mode.DRAWINGLINE)
+        if (mode == Mode.drawLine)
         {
             beingDrawn.physPush();
-            mode = Mode.LINE;
+            mode = Mode.line;
         }
-        else if (mode == Mode.BALL)
+        else if (mode == Mode.ball)
         {
             Ball b = new Ball(e.getX(), e.getY(), 10);
             b.push();
             b.physPush();
         }
+		else if (mode == Mode.water)
+		{
+			WaterBlob b = new WaterBlob();
+			b.setXY(e.getX(), e.getY());
+			b.push();
+			b.physPush();
+		}
         else
         {
             int x = e.getX(), y = e.getY();
             beingDrawn = new Line(x, y, x, y);
             beingDrawn.push();
-            mode = Mode.DRAWINGLINE;
+            mode = Mode.drawLine;
         }
     }
 
@@ -66,10 +73,12 @@ public class InputHandler implements MouseListener, MouseMotionListener, ActionL
     public void actionPerformed(ActionEvent e)
     {
         System.out.println(e);
-        if (mode == Mode.BALL)
-            mode = Mode.LINE;
-        else
-            mode = Mode.BALL;
+        if (mode == Mode.water)
+            mode = Mode.line;
+        else if(mode == Mode.line)
+            mode = Mode.ball;        
+		else if(mode == Mode.ball)
+            mode = Mode.water;
         
     }
 

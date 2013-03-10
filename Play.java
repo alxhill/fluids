@@ -12,7 +12,7 @@ class Play implements Runnable
         view.addMouseListener(inputHandler);
         view.addMouseMotionListener(inputHandler);
         
-        JButton button = new JButton("Toggle line/ball input");
+        JButton button = new JButton("Toggle ball/water/line");
         button.addActionListener(inputHandler);
         view.add(button);
     }
@@ -77,7 +77,8 @@ class Play implements Runnable
 
     void animate()
     {
-        for (int i=0; i<10000; i++)
+        //for (int i=0; i<10000; i++)
+		while(true)
         {
             try { Thread.sleep(40); }
             catch (InterruptedException interruption) { }
