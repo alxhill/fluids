@@ -391,7 +391,7 @@ class WaterBlob extends PhysEl
 			//g.fillOval(0, 0, 5, 5);	
 		}
 		else
-			g.fillOval(0, 0, 10, 10);
+			g.fillOval(0, 0, 5, 5);
     }
 
 }
