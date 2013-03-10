@@ -149,11 +149,33 @@ class WaterBlob extends PhysEl
 			}
 
             fx+=(ax + vpx)*friction;
-			
+			//fy+=(ay + vpy)*friction;
 			if(vy < 0)
 				fy+=(ay + vpy)*friction  + 1.0;
 			else
 				fy+=(ay + vpy)*friction  - 1.0;
+				
+			/*if(changesSide(l, px, py, px+fx, py+fy))
+			{
+				//fy-=2;
+				if(vy < 0)
+				{
+					fy-=1.0;
+				}
+				else
+				{
+					fy+=1.0;
+				}
+			}*/
+				
+			/*if(changesSide(l, px, py, px + fx, py + fy + (ay + vpy)*friction + 1.0))
+			{
+				fy+=(ay + vpy)*friction  - 1.0;
+			}
+			else
+			{
+				fy+=(ay + vpy)*friction  + 1.0;
+			}*/
 				
             ret[0]=fx;
             ret[1]=fy;
@@ -173,9 +195,12 @@ class WaterBlob extends PhysEl
         p2x = b.x;
         p2y = b.y;
 		
+		double fmul=1;
+		
 		if(!b.isWater)
 		{
-			return new double[2];		
+			fmul=0.2;
+			//return new double[2];		
 		}
 
         double maxRepel = radius*8;
@@ -204,6 +229,8 @@ class WaterBlob extends PhysEl
             {
                 force=2.0;
             }
+			
+			force=force*fmul;
 
             double xf = -force * Math.cos(angle)/2.0;
             double yf = -force * Math.sin(angle)/2.0;
@@ -298,6 +325,9 @@ class WaterBlob extends PhysEl
 
         fx+=sumforce[0];
         fy+=sumforce[1];
+		
+		int crashprevent = PhysEl.physElements.size() * 10;
+		int crashcounter=0;
 
         for(int i = 0; i<PhysEl.physElements.size(); i++)
         {
@@ -311,6 +341,12 @@ class WaterBlob extends PhysEl
 
                     fx+=force[0];
                     fy+=force[1];
+					crashcounter++;
+					if(crashcounter > crashprevent)
+					{
+						break;
+					}
+					i=-1;
                 }
             }
         }
